@@ -4,11 +4,15 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo/logo.png";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeProviderContext";
-
+import { AuthContext } from "../context/AuthContextProvider";
+import "./navbar.css";
+import auth from "../utils/firebaseConfig";
+import { signOut } from "firebase/auth";
 const Navbar = () => {
-// theme mode
-const {isDarkMode, setIsDarkMode}= useContext(ThemeContext)
- 
+  // theme mode displayName email photoURL
+  const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
+  const { user } = useContext(AuthContext);
+  console.log(user);
   const menu = (
     <>
       <li>
@@ -20,19 +24,27 @@ const {isDarkMode, setIsDarkMode}= useContext(ThemeContext)
     </>
   );
 
-// Theme toggle function
-const ThemeToggle=()=>{
-  const html = document.getElementsByTagName('html')[0]
-if(isDarkMode){
-  html.setAttribute('data-theme','light')
-}else{
-  html.setAttribute('data-theme','dark') 
+  // Theme toggle function
+  const ThemeToggle = () => {
+    const html = document.getElementsByTagName("html")[0];
+    if (isDarkMode) {
+      html.setAttribute("data-theme", "light");
+    } else {
+      html.setAttribute("data-theme", "dark");
+    }
+    setIsDarkMode(!isDarkMode);
+  };
+// logOut function
+const logOut = () => {
+  signOut(auth).then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+  });
+  
 }
-setIsDarkMode(!isDarkMode)
-}
-
   return (
-    <nav className="navbar">
+    <nav className="navbar ">
       <div className="navbar ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -69,7 +81,7 @@ setIsDarkMode(!isDarkMode)
         </div>
         <div className="navbar-end">
           {/*  Dark mode switch icon. */}
-          <label className="swap swap-rotate">
+          <label className="swap swap-rotate mr-3">
             {/* this hidden checkbox controls the state */}
             <input onChange={ThemeToggle} type="checkbox" />
 
@@ -91,41 +103,65 @@ setIsDarkMode(!isDarkMode)
               <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
             </svg>
           </label>
-          {/* Login btn */}
-          <button><Link to='/login'>Login</Link></button>
-          {/* Profile img*/}
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+
+          {user ? (
+            <div className="dropdown  dropdown-end">
+              <div className="relative flex items-center gap-3">
+                <button
+                 tabIndex={0}
+                 role="button" className="bg-black text-white py-1 px-2 rounded-lg">My Profile</button>
+                <div
+                 
+                  className="btn btn-ghost btn-circle avatar  "
+                >
+                  <div className=" ProfileImg  rounded-full  ">
+                    {user?.photoURL ? (
+                      <img className="ProfileImg" alt="User profile image" src={user?.photoURL} />
+                    ) : (
+                      <img
+                        alt="User profile image"
+                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      />
+                    )}
+                     <div>
+                  <ul className="Profile space-y-3 bg-base-100 right-0 top-12 absolute shadow-md border w-32  ">
+                    <li className="border-b py-2">
+                      <a className="justify-between">{user?.displayName}</a>
+                    </li>
+                    <li className="py-2">
+                      <button onClick={logOut}>LogOut</button>
+                    </li>
+                  </ul>
+                </div>
+                  </div>
+                </div>
+               
               </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <a className="justify-between">
+                  Add Volunteer need Post
+
+                   
+                  </a>
+                </li>
+                <li>
+                  <a>Manage My Posts 
+                  </a>
+                </li>
+              
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
+          ) : (
+            <button>
+              <Link to="/login">Login</Link>
+            </button>
+          )}
         </div>
+        
       </div>
     </nav>
   );

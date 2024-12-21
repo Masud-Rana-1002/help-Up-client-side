@@ -3,16 +3,74 @@ import { ThemeContext } from "../../context/ThemeProviderContext";
 import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 import logInAnimation from "../../assets/loginImg/login.json";
+import { AuthContext } from "../../context/AuthContextProvider";
+import { updateProfile } from "firebase/auth";
+import auth from "../../utils/firebaseConfig";
+import Swal from "sweetalert2";
 const Register = () => {
   const { isDarkMode } = useContext(ThemeContext);
-
+  const { createUserByEmailAndPassword, signInWithGoogle } = useContext(AuthContext);
   // Submit Function
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    console.log(data);
+    createUserByEmailAndPassword(data.email, data.password)
+      .then((userCredential) => {
+        // Signed up
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Success! Your account has been created.",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        e.target.reset();
+        const user = userCredential.user;
+        // Update profile
+        updateProfile(auth.currentUser, {
+          displayName: data.name,
+          photoURL: data.photoUrl,
+        })
+          .then(() => {
+            // Profile updated!
+            // ...
+          })
+          .catch((error) => {
+            // An error occurred
+            // ...
+          });
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if ((errorCode, errorMessage)) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title:
+              "This email is already in use. Please try a different email or log in.",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        }
+        // ..
+      });
+
+    
   };
+  // Sign in with Google
+   const handleGoogleSignIn = () => {
+     signInWithGoogle()
+     .then((result) => {
+      console.log("User signed in:", result.user);
+    })
+    .catch((error) => {
+      console.error("Error during sign-in:", error.message);
+    });
+   
+   }
   return (
     <div className="loginBg flex items-center justify-center gap-32 min-h-[calc(100vh-84px)]">
       {/* lottie-react */}
@@ -94,7 +152,7 @@ const Register = () => {
         <div className="divider">OR</div>
 
         {/* bordered google login button */}
-        <button className="border justify-center border-[#e5eaf2] hover:border-red-600 rounded-md py-2 px-4 flex items-center gap-[10px] text-[1rem] text-transition-all duration-200">
+        <button onClick={handleGoogleSignIn} className="border justify-center border-[#e5eaf2] hover:border-red-600 rounded-md py-2 px-4 flex items-center gap-[10px] text-[1rem] text-transition-all duration-200">
           <img
             src="https://i.ibb.co/dQMmB8h/download-4-removebg-preview-1.png"
             alt="google logo"

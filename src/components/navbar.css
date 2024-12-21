@@ -1,0 +1,13 @@
+:hover.ProfileImg .Profile{
+  display: block;
+  background-color: transparent;
+  z-index: 1;
+  
+}
+.Profile{
+  display: none;
+ 
+}
+:hover.Profile{
+display: block;
+}
