@@ -17,7 +17,7 @@ import slide6 from "../../assets/sliderImg/slider1.jpg";
 
 const Banner = () => {
   return (
-    <div className="">
+    <div className="z-0">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}

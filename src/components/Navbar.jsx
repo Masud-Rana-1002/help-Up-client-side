@@ -12,7 +12,7 @@ const Navbar = () => {
   // theme mode displayName email photoURL
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
-  console.log(user);
+  
   const menu = (
     <>
       <li>
@@ -124,7 +124,7 @@ const logOut = () => {
                       />
                     )}
                      <div>
-                  <ul className="Profile space-y-3 bg-base-100 right-0 top-12 absolute shadow-md border w-32  ">
+                  <ul className=" z-50 Profile space-y-3 bg-base-100 right-0 top-12 absolute shadow-md border w-32  ">
                     <li className="border-b py-2">
                       <a className="justify-between">{user?.displayName}</a>
                     </li>
@@ -139,7 +139,7 @@ const logOut = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
               >
                 <li>
                   <a className="justify-between">

@@ -5,11 +5,13 @@ import Register from "../pages/Register/Register";
 import AddVolunteerPostForm from "../pages/Private-route/volunteer-post-page/AddVolunteerPostForm";
 
 import Home from "../pages/Home/Home";
+import Page404 from "../pages/Page404/Page404";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
+    errorElement:<Page404></Page404>,
     children:[
       {
         path: "/",

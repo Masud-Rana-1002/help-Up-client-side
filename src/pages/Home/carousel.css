@@ -3,6 +3,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+ 
   
 }
 .slider1{
@@ -17,3 +18,4 @@
 .slider4{
   background-image: url('../../assets/sliderImg/slider4.jpg');
 }
+
