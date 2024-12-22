@@ -1,0 +1,19 @@
+.slider{
+  
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+.slider1{
+  background-image: url('../../assets/sliderImg/slider1.jpg');
+}
+.slider2{
+  background-image: url('../../assets/sliderImg/slider2.jpg');
+}
+.slider3{
+  background-image: url('../../assets/sliderImg/slider3.jpg');
+}
+.slider4{
+  background-image: url('../../assets/sliderImg/slider4.jpg');
+}

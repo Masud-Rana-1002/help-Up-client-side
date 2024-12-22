@@ -44,7 +44,7 @@ const logOut = () => {
   
 }
   return (
-    <nav className="navbar ">
+    <nav className="navbar  p-0">
       <div className="navbar ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -72,8 +72,8 @@ const logOut = () => {
             </ul>
           </div>
           {/* logo img */}
-          <a className="btn btn-ghost text-xl flex items-center">
-            <img src={logo} alt="" className="w-12 " /> HelpUp
+          <a className=" text-xl flex items-center gap-2">
+            <img src={logo} alt="" className="w-12  " /> HelpUp
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
