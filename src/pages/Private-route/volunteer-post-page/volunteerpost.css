@@ -1,0 +1,6 @@
+.postbg{
+  background-image: url('../../../assets/post-bg/postbg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
