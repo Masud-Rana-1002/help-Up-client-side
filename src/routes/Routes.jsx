@@ -6,6 +6,7 @@ import AddVolunteerPostForm from "../pages/Private-route/volunteer-post-page/Add
 
 import Home from "../pages/Home/Home";
 import Page404 from "../pages/Page404/Page404";
+import AllVolunteerNeedPosts from "../pages/AllvolunteerNeedposts/AllvolunteerNeedposts";
 
 const routes = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const routes = createBrowserRouter([
       {
         path:"/AddVolunteerPost",
         element: <AddVolunteerPostForm></AddVolunteerPostForm>
+      },
+      {
+        path:"/allVolunteerNeedPosts",
+        element: <AllVolunteerNeedPosts></AllVolunteerNeedPosts>
       }
     ]
     

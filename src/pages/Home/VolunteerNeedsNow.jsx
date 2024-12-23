@@ -1,21 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import img1 from "../../assets/uorgoalimg/work1.jpg";
 import { use } from "react";
+import { format } from "date-fns";
 import axios from "axios";
 import { ThemeContext } from "../../context/ThemeProviderContext";
+import { Link } from "react-router-dom";
+import { axiosInstance } from "../../utils/hooks/useAxiosSecure";
 const VolunteerNeedsNow = () => {
-  const serverUrl = import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL;
+  // const serverUrl = import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL;
   const [posts, setPosts] = useState([]);
   const { isDarkMode } = useContext(ThemeContext);
   useEffect(() => {
-    axios.get(`${serverUrl}/api/posts`).then((res) => {
+    axiosInstance.get(`/api/posts?sortByDeadline=true&&dataLimit=6`).then((res) => {
       setPosts(res.data);
     });
   }, []);
-  console.log(posts);
+
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="space-y-2 text-center">
+      <h1 className="  text-3xl font-bold animate__animated animate__backInLeft">Upcoming Volunteer Opportunities</h1>
+      <p>Find Urgent Volunteer Needs</p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
         {posts.map((post) => (
           <div className={`${isDarkMode&&' border border-gray-600'} max-w-lg p-4 shadow-md dark:bg-gray-50 dark:text-gray-800`}>
             <div className="space-y-4">
@@ -26,7 +34,7 @@ const VolunteerNeedsNow = () => {
                   className="block object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
                 />
                 <div className="flex items-center text-xs">
-                  <span>{post.startDate}</span>
+                  <span>{format(new Date(post.startDate), "dd-MM-yyyy")}</span>
                 </div>
               </div>
               <div className="space-y-2">
@@ -47,9 +55,10 @@ const VolunteerNeedsNow = () => {
       </div>
       <div className="mx-auto flex items-center justify-center mt-4">
         {/* right top */}
+        <Link to='/allVolunteerNeedPosts'>
         <button className="px-6 py-2 rounded-md border border-[#3a5f9c] relative before:absolute overflow-hidden before:translate-x-[200px] hover:before:translate-x-0 before:-translate-y-12 hover:before:-translate-y-0 before:z-[-1] before:transition before:duration-300 hover:text-white  before:w-full before:h-full before:bg-[#3a5f9c] before:top-0 before:left-0">
-          See all
-        </button>
+         See all
+        </button></Link>
       </div>
     </div>
   );

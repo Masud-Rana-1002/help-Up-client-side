@@ -16,10 +16,10 @@ const Navbar = () => {
   const menu = (
     <>
       <li>
-        <NavLink>Home</NavLink>
+        <NavLink to='/'>Home</NavLink>
       </li>
       <li>
-        <NavLink>All volunteer Need posts</NavLink>
+        <NavLink to='/allVolunteerNeedPosts'>All volunteer Need posts</NavLink>
       </li>
     </>
   );
