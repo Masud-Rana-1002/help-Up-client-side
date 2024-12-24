@@ -148,7 +148,13 @@ const logOut = () => {
                   </a>
                 </li>
                 <li>
-                  <a>Manage My Posts 
+                  <a className="justify-between">
+               <li><Link to={`/manageMyPosts/${user.email}`}>Manage My Posts</Link></li>
+                   
+                  </a>
+                </li>
+                <li>
+                  <a>
                   </a>
                 </li>
               

@@ -7,8 +7,12 @@ import AddVolunteerPostForm from "../pages/Private-route/volunteer-post-page/Add
 import Home from "../pages/Home/Home";
 import Page404 from "../pages/Page404/Page404";
 import AllVolunteerNeedPosts from "../pages/AllvolunteerNeedposts/AllvolunteerNeedposts";
+import VolunteerNeedPostDetails from "../pages/Private-route/VolunteerNeedPostDetails";
+import Modal from "../pages/Private-route/Modal";
+import Table from "../pages/Private-route/Table";
 
-const routes = createBrowserRouter([
+const routes = createBrowserRouter(
+  [
   {
     path: "/",
     element: <App></App>,
@@ -34,6 +38,21 @@ const routes = createBrowserRouter([
       {
         path:"/allVolunteerNeedPosts",
         element: <AllVolunteerNeedPosts></AllVolunteerNeedPosts>
+      },
+      {
+        
+        path:"/VolunteerNeedPostDetails/:id",
+        element: <VolunteerNeedPostDetails></VolunteerNeedPostDetails>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/${params.id}`)
+      },{
+        path:'/modal/:id',
+        element: <Modal></Modal>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/${params.id}`)
+      },{
+        path: '/manageMyPosts/:email',
+        element:<Table></Table>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/myPost/${params.email}`)
+
       }
     ]
     

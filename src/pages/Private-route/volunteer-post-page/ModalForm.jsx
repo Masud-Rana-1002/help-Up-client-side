@@ -7,36 +7,52 @@ import "./volunteerpost.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../context/AuthContextProvider";
-const AddVolunteerPostForm = () => {
+import { format } from "date-fns";
+import { axiosInstance } from "../../../utils/hooks/useAxiosSecure";
+const ModalForm = ({ data }) => {
+  const {
+    Location,
+    PostTitle,
+    Thumbnail,
+    category,
+    email,
+    name,
+    startDate,
+   
+NoOfVolunteersRequired,
+    Description,
+    _id,
+  } = data;
   const { isDarkMode } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
+  const [suggestion, setSuggestion] = useState("");
 
-  console.log(user?.displayName);
-  const [startDate, setStartDate] = useState(new Date());
-  const [category, setCategory] = useState("");
+
   const serverUrl = import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL;
 
-  const postHandler = (e) => {
+  const BeVolunteerHandler = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    const { name, email, Thumbnail, PostTitle, Location, volunteersRequired, Description } =
-      data;
-    const NoOfVolunteersRequired =   parseInt(volunteersRequired)
-    const postData = {
-      name,
-      email,
-      Thumbnail,
-      PostTitle,
-      Location,
-      category,
-      startDate,
-      NoOfVolunteersRequired,
-      Description
+    const { volunteerName, volunteerEmail, suggestion } = data;
+    const requestData = {
+      // name,
+      // email,
+      // Thumbnail,
+      // PostTitle,
+      // Location,
+      // category,
+      // startDate,
+      // volunteersRequired,
+      // Description
+      postId: _id,
+      volunteerName,
+      volunteerEmail,
+      suggestion,
+      status: "requested",
     };
-    console.log(Description);
-    axios
-      .post(`${serverUrl}/api/posts`, postData)
+    axiosInstance
+      .post(`/api/volunteer-request`, requestData)
       .then((response) => {
         console.log("Post added successfully:", response);
         Swal.fire({
@@ -62,30 +78,28 @@ const AddVolunteerPostForm = () => {
 
   return (
     <div>
-      <div className="postbg flex  items-center justify-center gap-32 min-h-[calc(100vh-84px)]">
-        {/* lottie-react */}
-        {/* <div className=" hidden lg:block ">
-          {/* <Lottie animationData={logInAnimation} loop={true} /> */}
-        {/* </div> */}
-        {/* login form */}
+      <div className="w-full   min-h-[calc(100vh-84px)]">
         <div
-          className={`card-body  bg-base-100 w-full max-w-screen-lg rounded-lg shrink-0 shadow-2xl ${
+          className={`p-2   w-full rounded-lg shrink-0  ${
             isDarkMode ? "border border-[#891f21]" : ""
           }`}
         >
           <h3 className="text-center text-2xl font-medium">
             Add volunteer post{" "}
           </h3>
-          <form className="grid grid-cols-1 md:grid-cols-2 items-center justify-center  gap-x-6" onSubmit={postHandler}>
+          <form
+            className="grid w-full  grid-cols-1 md:grid-cols-2 items-center  gap-x-6"
+            onSubmit={BeVolunteerHandler}
+          >
             {/*Organizer Name (Read-only)*/}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Name (Read-only)</span>
+                <span className="label-text font-medium">Organizer name</span>
               </label>
               <input
                 name="name"
                 type="text"
-                defaultValue={user?.displayName}
+                defaultValue={name}
                 className="input input-bordered cursor-not-allowed"
                 required
               />
@@ -93,10 +107,36 @@ const AddVolunteerPostForm = () => {
             {/* Organizer Email (Read-only) */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email (Read-only)</span>
+                <span className="label-text font-medium">Organizer email</span>
               </label>
               <input
                 name="email"
+                defaultValue={email}
+                type="text"
+                className="input input-bordered cursor-not-allowed"
+                required
+              />
+            </div>
+            {/*Volunteer name (Read-only)*/}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text font-medium">Volunteer name</span>
+              </label>
+              <input
+                name="volunteerName"
+                type="text"
+                defaultValue={user?.displayName}
+                className="input input-bordered cursor-not-allowed"
+                required
+              />
+            </div>
+            {/*Volunteer  Email (Read-only) */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text font-medium">Volunteer Email</span>
+              </label>
+              <input
+                name="volunteerEmail"
                 defaultValue={user?.email}
                 type="text"
                 className="input input-bordered cursor-not-allowed"
@@ -111,8 +151,9 @@ const AddVolunteerPostForm = () => {
               <input
                 name="Thumbnail"
                 type="url"
+                value={Thumbnail}
                 placeholder="Thumbnail URL"
-                className="input input-bordered"
+                className="input input-bordered cursor-not-allowed "
                 required
               />
             </div>
@@ -123,9 +164,10 @@ const AddVolunteerPostForm = () => {
               </label>
               <input
                 name="PostTitle"
+                value={PostTitle}
                 type="text"
                 placeholder="Post Title"
-                className="input input-bordered"
+                className="input input-bordered cursor-not-allowed "
                 required
               />
             </div>
@@ -136,9 +178,10 @@ const AddVolunteerPostForm = () => {
               </label>
               <input
                 name="Location"
+                value={Location}
                 type="text"
                 placeholder="Location"
-                className="input input-bordered"
+                className="cursor-not-allowed  input input-bordered"
                 required
               />
             </div>
@@ -152,36 +195,35 @@ const AddVolunteerPostForm = () => {
               <input
                 name="volunteersRequired"
                 type="number"
+                value={
+                  NoOfVolunteersRequired}
                 placeholder="Enter number of volunteers required"
-                className="input input-bordered"
+                className="input input-bordered cursor-not-allowed "
                 required
               />
             </div>
-           
-              {/* React Datepicker */}
-              <div className="mt-4 w-full border border-gray-300 rounded-md p-1">
-                <DatePicker
-                  showIcon
-                  selected={startDate}
-                  className="w-full focus:outline-none text-gray-700"
-                  dateFormat="yyyy/MM/dd"
-                  onChange={(date) => setStartDate(date)}
-                  placeholderText="Select a date"
-                  required
-                />
-              </div>
-         
+
+            {/* React Datepicker */}
+            <div className="mt-4 w-full border border-gray-300 rounded-md p-1">
+              <DatePicker
+                showIcon
+                value={format(new Date(startDate), "dd-MM-yyyy")}
+                className="w-full cursor-not-allowed focus:outline-none text-gray-700"
+                dateFormat="yyyy/MM/dd"
+                placeholderText="Select a date"
+                required
+              />
+            </div>
+
             {/* Category Dropdown */}
             <div className="mt-4 w-full border-gray-300 rounded-md p-2">
               <select
                 required
-                className="select select-bordered w-full focus:outline-none text-gray-700"
+                className="select cursor-not-allowed  select-bordered w-full focus:outline-none text-gray-700"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)} // Attach the onChange handler
+                // onChange={(e) => setCategory(e.target.value)} // Attach the onChange handler
               >
-                <option value="" disabled>
-                  Select a category
-                </option>
+                <option disabled>Select a category</option>
                 <option value="healthcare">Healthcare</option>
                 <option value="education">Education</option>
                 <option value="social service">Social Service</option>
@@ -195,9 +237,24 @@ const AddVolunteerPostForm = () => {
                 <span className="label-text">Description</span>
               </label>
               <textarea
-              name="Description"
+                name="Description"
+                readOnly
                 placeholder="Description"
-                className="textarea textarea-bordered textarea-lg w-full"
+                value={Description}
+                className="textarea cursor-not-allowed  textarea-bordered textarea-sm w-full"
+              ></textarea>
+            </div>
+            {/* Suggestion  */}
+            <div className="form-control md:grid  md:col-span-2">
+              <label className="label">
+                <span className="label-text">Suggestion </span>
+              </label>
+              <textarea
+                name="suggestion"
+                placeholder="Suggestion"
+                value={suggestion}
+                onChange={(e) => setSuggestion(e.target.value)}
+                className="textarea textarea-bordered textarea-sm w-full"
               ></textarea>
             </div>
 
@@ -205,16 +262,14 @@ const AddVolunteerPostForm = () => {
               <button
                 className={`btn bg-[#CE3235] hover:bg-[#891f21] text-white `}
               >
-                Add Post
+                Request
               </button>
             </div>
           </form>
-
-          {/* bordered google login button */}
         </div>
       </div>
     </div>
   );
 };
 
-export default AddVolunteerPostForm;
+export default ModalForm;

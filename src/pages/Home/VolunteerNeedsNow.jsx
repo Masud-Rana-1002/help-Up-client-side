@@ -15,7 +15,7 @@ const VolunteerNeedsNow = () => {
       setPosts(res.data);
     });
   }, []);
-
+ 
   return (
     <div>
       <div className="space-y-2 text-center">
@@ -24,7 +24,7 @@ const VolunteerNeedsNow = () => {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
-        {posts.map((post) => (
+        {posts?.map((post) => (
           <div className={`${isDarkMode&&' border border-gray-600'} max-w-lg p-4 shadow-md dark:bg-gray-50 dark:text-gray-800`}>
             <div className="space-y-4">
               <div className="space-y-2">
@@ -34,7 +34,8 @@ const VolunteerNeedsNow = () => {
                   className="block object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
                 />
                 <div className="flex items-center text-xs">
-                  <span>{format(new Date(post.startDate), "dd-MM-yyyy")}</span>
+                  {/* <span>{format(new Date(post?.startDate&& post.startDate), "dd-MM-yyyy")}</span>
+                  {console.log(post?.startDate)} */}
                 </div>
               </div>
               <div className="space-y-2">
