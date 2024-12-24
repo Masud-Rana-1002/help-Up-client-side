@@ -11,6 +11,7 @@ import VolunteerNeedPostDetails from "../pages/Private-route/VolunteerNeedPostDe
 import Modal from "../pages/Private-route/Modal";
 import Table from "../pages/Private-route/Table";
 import UpdatePost from "../pages/Private-route/UpdatePost";
+import MyVolunteerRequest from "../pages/MyVolunteerRequest/MyVolunteerRequest";
 
 const routes = createBrowserRouter(
   [
@@ -57,8 +58,13 @@ const routes = createBrowserRouter(
       },{
         path: '/updatePost/:id',
         element:<UpdatePost></UpdatePost>,
-        loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/${params.id}`)
+        loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/:${params.id}`)
+      },
 
+      {
+        path: '/myVolunteerReq/:email',
+        element: <MyVolunteerRequest></MyVolunteerRequest>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/post/myVolunteerReq/${params.email}`)
       }
     ]
     

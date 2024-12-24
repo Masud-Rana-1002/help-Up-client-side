@@ -12,14 +12,17 @@ const Navbar = () => {
   // theme mode displayName email photoURL
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
-  
+
   const menu = (
     <>
       <li>
-        <NavLink to='/'>Home</NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to='/allVolunteerNeedPosts'>All volunteer Need posts</NavLink>
+        <NavLink to="/allVolunteerNeedPosts">All volunteer Need posts</NavLink>
+      </li>
+      <li>
+        <NavLink to={`/myVolunteerReq/${user?.email}`}>My Volunteer Request</NavLink>
       </li>
     </>
   );
@@ -34,15 +37,16 @@ const Navbar = () => {
     }
     setIsDarkMode(!isDarkMode);
   };
-// logOut function
-const logOut = () => {
-  signOut(auth).then(() => {
-    // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-  });
-  
-}
+  // logOut function
+  const logOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   return (
     <nav className="navbar  p-0">
       <div className="navbar ">
@@ -108,34 +112,38 @@ const logOut = () => {
             <div className="dropdown  dropdown-end">
               <div className="relative flex items-center gap-3">
                 <button
-                 tabIndex={0}
-                 role="button" className="bg-black text-white py-1 px-2 rounded-lg">My Profile</button>
-                <div
-                 
-                  className="btn btn-ghost btn-circle avatar  "
+                  tabIndex={0}
+                  role="button"
+                  className="bg-black text-white py-1 px-2 rounded-lg"
                 >
+                  My Profile
+                </button>
+                <div className="btn btn-ghost btn-circle avatar  ">
                   <div className=" ProfileImg  rounded-full  ">
                     {user?.photoURL ? (
-                      <img className="ProfileImg" alt="User profile image" src={user?.photoURL} />
+                      <img
+                        className="ProfileImg"
+                        alt="User profile image"
+                        src={user?.photoURL}
+                      />
                     ) : (
                       <img
                         alt="User profile image"
                         src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                       />
                     )}
-                     <div>
-                  <ul className=" z-50 Profile space-y-3 bg-base-100 right-0 top-12 absolute shadow-md border w-32  ">
-                    <li className="border-b py-2">
-                      <a className="justify-between">{user?.displayName}</a>
-                    </li>
-                    <li className="py-2">
-                      <button onClick={logOut}>LogOut</button>
-                    </li>
-                  </ul>
-                </div>
+                    <div>
+                      <ul className=" z-50 Profile space-y-3 bg-base-100 right-0 top-12 absolute shadow-md border w-32  ">
+                        <li className="border-b py-2">
+                          <a className="justify-between">{user?.displayName}</a>
+                        </li>
+                        <li className="py-2">
+                          <button onClick={logOut}>LogOut</button>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-               
               </div>
               <ul
                 tabIndex={0}
@@ -143,21 +151,23 @@ const logOut = () => {
               >
                 <li>
                   <a className="justify-between">
-               <li><Link to='/AddVolunteerPost'>Add volunteer post</Link></li>
-                   
+                    <li>
+                      <Link to="/AddVolunteerPost">Add volunteer post</Link>
+                    </li>
                   </a>
                 </li>
                 <li>
                   <a className="justify-between">
-               <li><Link to={`/manageMyPosts/${user.email}`}>Manage My Posts</Link></li>
-                   
+                    <li>
+                      <Link to={`/manageMyPosts/${user.email}`}>
+                        Manage My Posts
+                      </Link>
+                    </li>
                   </a>
                 </li>
                 <li>
-                  <a>
-                  </a>
+                  <a></a>
                 </li>
-              
               </ul>
             </div>
           ) : (
@@ -166,7 +176,6 @@ const logOut = () => {
             </button>
           )}
         </div>
-        
       </div>
     </nav>
   );

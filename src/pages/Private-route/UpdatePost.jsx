@@ -81,7 +81,7 @@ const UpdatePost = () => {
           }`}
         >
           <h3 className="text-center text-2xl font-medium">
-            Add volunteer post{" "}
+            Update post{" "}
           </h3>
           <form
             className="grid grid-cols-1 md:grid-cols-2 items-center justify-center  gap-x-6"
@@ -90,7 +90,7 @@ const UpdatePost = () => {
             {/*Organizer Name (Read-only)*/}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Name (Read-only)</span>
+                <span className="label-text">Organizer Name (Read-only)</span>
               </label>
               <input
                 name="name"
@@ -103,7 +103,7 @@ const UpdatePost = () => {
             {/* Organizer Email (Read-only) */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email (Read-only)</span>
+                <span className="label-text">Organizer Email (Read-only)</span>
               </label>
               <input
                 name="email"

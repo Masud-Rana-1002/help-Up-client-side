@@ -6,6 +6,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import { format } from "date-fns";
 import Swal from "sweetalert2";
 import { axiosInstance } from "../../utils/hooks/useAxiosSecure";
+import EmptyPage from "../../components/EmptyPage";
 
 const Table = () => {
   const initialData = useLoaderData();
@@ -127,7 +128,7 @@ const Table = () => {
         </table>
 
         {!sortedData.length && (
-          <p className="text-[0.9rem] text-gray-500 py-6 text-center w-full">No data found!</p>
+          <p className="text-[0.9rem] text-gray-500 py-6 text-center w-full"><EmptyPage /></p>
         )}
       </div>
     </div>

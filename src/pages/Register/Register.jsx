@@ -1,20 +1,31 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeProviderContext";
 import Lottie from "lottie-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logInAnimation from "../../assets/loginImg/login.json";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { updateProfile } from "firebase/auth";
 import auth from "../../utils/firebaseConfig";
 import Swal from "sweetalert2";
+
 const Register = () => {
   const { isDarkMode } = useContext(ThemeContext);
-  const { createUserByEmailAndPassword, signInWithGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { createUserByEmailAndPassword, signInWithGoogle,toast } = useContext(AuthContext);
+  const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
   // Submit Function
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
+    if (!passwordValidation.test(data.password)) {
+      toast.error(
+        "Invalid password. Must include uppercase, lowercase, and at least 6 characters."
+      );
+
+      return;
+    }
     createUserByEmailAndPassword(data.email, data.password)
       .then((userCredential) => {
         // Signed up
@@ -25,6 +36,7 @@ const Register = () => {
           showConfirmButton: false,
           timer: 2000,
         });
+        navigate('/')
         e.target.reset();
         const user = userCredential.user;
         // Update profile
