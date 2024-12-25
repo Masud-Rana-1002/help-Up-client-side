@@ -11,7 +11,8 @@ import Swal from "sweetalert2";
 const Register = () => {
   const { isDarkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
-  const { createUserByEmailAndPassword, signInWithGoogle,toast } = useContext(AuthContext);
+  const { createUserByEmailAndPassword, signInWithGoogle, toast } =
+    useContext(AuthContext);
   const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
   // Submit Function
 
@@ -36,7 +37,7 @@ const Register = () => {
           showConfirmButton: false,
           timer: 2000,
         });
-        navigate('/')
+        navigate("/");
         e.target.reset();
         const user = userCredential.user;
         // Update profile
@@ -57,7 +58,7 @@ const Register = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        if ((errorCode, errorMessage)) {
+        if ((errorCode || errorMessage)) {
           Swal.fire({
             position: "center",
             icon: "error",
@@ -69,20 +70,34 @@ const Register = () => {
         }
         // ..
       });
-
-    
   };
   // Sign in with Google
-   const handleGoogleSignIn = () => {
-     signInWithGoogle()
-     .then((result) => {
-      console.log("User signed in:", result.user);
-    })
-    .catch((error) => {
-      console.error("Error during sign-in:", error.message);
-    });
-   
-   }
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Success! Your account has been created.",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        if(error){
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title:
+              "Oops... Something went wrong.",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        }
+        console.error("Error during sign-in:", error.message);
+      });
+  };
   return (
     <div className="loginBg flex items-center justify-center gap-32 min-h-[calc(100vh-84px)]">
       {/* lottie-react */}
@@ -164,7 +179,10 @@ const Register = () => {
         <div className="divider">OR</div>
 
         {/* bordered google login button */}
-        <button onClick={handleGoogleSignIn} className="border justify-center border-[#e5eaf2] hover:border-red-600 rounded-md py-2 px-4 flex items-center gap-[10px] text-[1rem] text-transition-all duration-200">
+        <button
+          onClick={handleGoogleSignIn}
+          className="border justify-center border-[#e5eaf2] hover:border-red-600 rounded-md py-2 px-4 flex items-center gap-[10px] text-[1rem] text-transition-all duration-200"
+        >
           <img
             src="https://i.ibb.co/dQMmB8h/download-4-removebg-preview-1.png"
             alt="google logo"

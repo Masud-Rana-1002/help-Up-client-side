@@ -111,13 +111,13 @@ const Navbar = () => {
           {user ? (
             <div className="dropdown  dropdown-end">
               <div className="relative flex items-center gap-3">
-                {/* <button
+                <button
                   tabIndex={0}
                   role="button"
                   className="bg-black text-white py-1 px-2 rounded-lg"
                 >
                   My Profile
-                </button> */}
+                </button>
                 <div className="btn btn-ghost btn-circle avatar  ">
                   <div className=" ProfileImg  rounded-full  ">
                     {user?.photoURL ? (

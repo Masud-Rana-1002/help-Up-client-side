@@ -6,6 +6,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { MdNumbers } from "react-icons/md";
 import { Link, useLoaderData } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeProviderContext";
+import Swal from "sweetalert2";
 
 const VolunteerNeedPostDetails = () => {
   const { modalOpen, setModalOpen } = useContext(ThemeContext);
@@ -24,6 +25,16 @@ const VolunteerNeedPostDetails = () => {
     Description,
     _id,
   } = data;
+  if (NoOfVolunteersRequired <= 0) {
+    Swal.fire({
+      position: "center",
+      icon: "info",
+      title: "No Volunteers Needed",
+      text: "This post doesn't require any more volunteers.",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+  }
   return (
     <div className="min-h-screen detailsPage flex-col flex pt-16 items-center">
       <div className="text-center p-6 max-w-screen-lg mx-auto">
@@ -70,6 +81,7 @@ const VolunteerNeedPostDetails = () => {
               <Link to={`/modal/${_id}`}>
                 <button
                   onClick={() => setModalOpen(true)}
+                  disabled={NoOfVolunteersRequired <= 0}
                   className="px-6 py-2 rounded-md border font-semibold border-[#3a5f9c] relative before:absolute overflow-hidden before:translate-x-[200px] hover:before:translate-x-0 before:-translate-y-12 hover:before:-translate-y-0 before:z-[-1] before:transition before:duration-300 hover:text-white  before:w-full before:h-full before:bg-[#3a5f9c] before:top-0 before:left-0 "
                 >
                   Be a Volunteer

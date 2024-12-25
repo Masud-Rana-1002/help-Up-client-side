@@ -145,7 +145,7 @@ if(!search){
                   <td>{format(new Date(post.startDate), "dd-MM-yyyy")}</td>
                   <td>
                     <Link to={`/VolunteerNeedPostDetails/${post._id}`}>
-                      <button className="btn bg-[#3a5f9c] text-white">
+                      <button className="btn hover:bg-[#2b4470] bg-[#3a5f9c] text-white">
                         View Details
                       </button>
                     </Link>

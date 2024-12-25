@@ -56,7 +56,11 @@ const VolunteerNeedsNow = () => {
                   {post.category}
                 </p>
               </div>
-              <button className='btn my-1 hover:bg-[#3a5f9c] bg-[#3a5f9c] text-white'>View Details </button>
+              <Link to={`/VolunteerNeedPostDetails/${post._id}`}>
+                      <button className="btn hover:bg-[#2b4470] bg-[#3a5f9c] text-white">
+                        View Details
+                      </button>
+                    </Link>
             </div>
             
           </div>

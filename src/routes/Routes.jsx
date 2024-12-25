@@ -70,10 +70,7 @@ const routes = createBrowserRouter(
         path: '/myVolunteerReq/:email',
         element: <MyVolunteerRequest></MyVolunteerRequest>,
         loader: async ({ params }) => {
-          const response = await axiosInstance.get(`/api/post/myVolunteerReq/${params.email}`,
-            {
-              withCredentials: true, 
-            }
+          const response = await axiosInstance.get(`/api/post/myVolunteerReq/${params.email}`
           );
       
           return response.data; 

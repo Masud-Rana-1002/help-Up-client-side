@@ -7,12 +7,13 @@ import logInAnimation from "../../assets/loginImg/login.json";
 import "./Login.css";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeProviderContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContextProvider";
 import Swal from "sweetalert2";
 const Login = () => {
   const { isDarkMode } = useContext(ThemeContext);
   const { createUserByEmailAndPassword,  signInWithGoogle } = useContext(AuthContext);
+  const  navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
