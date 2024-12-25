@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MdCancel } from "react-icons/md";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import { axiosInstance } from "../../utils/hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../../context/AuthContextProvider";
+import Loader from "../../components/Loader";
 
 const MyVolunteerRequest = () => {
   const reqData = useLoaderData();
+  const { loading, setLoading } = useContext(AuthContext);
   const [postReqData, setPostReqData] = useState(reqData);
+
   const cancelRequest = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -18,27 +23,40 @@ const MyVolunteerRequest = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosInstance.delete(`/api/posts/req/delete/${id}`)
-        .then((response) => {
+        setLoading(true); // Set loading true while making the API request
+        axiosInstance.delete(`/api/posts/req/delete/${id}`).then((response) => {
+          setLoading(false); // Set loading false when response is received
           if (response.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
               text: "Your review has been deleted.",
               icon: "success",
             });
-
-         
-            
           }
-          const update = postReqData.filter((data) => data._id !== id);
-           setPostReqData(update);
-           console.log(update)
-        })
+          const updatedData = postReqData.filter((data) => data._id !== id);
+          setPostReqData(updatedData);
+        }).catch((error) => {
+          setLoading(false); // Ensure loading is reset if an error occurs
+          console.error(error);
+          Swal.fire({
+            title: "Error",
+            text: "Something went wrong!",
+            icon: "error",
+          });
+        });
       }
     });
   };
+
+  if (loading) {
+    return <Loader />; 
+  }
+
   return (
     <div>
+      <Helmet>
+        <title>My Volunteer Requests - Volunteer Platform</title>
+      </Helmet>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -48,21 +66,24 @@ const MyVolunteerRequest = () => {
               <th>Organizer name</th>
               <th>Location</th>
               <th>Start Date</th>
-              <th>category</th>
+              <th>Category</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
+            {/* Map through postReqData */}
             {postReqData.map((data, index) => (
-              <tr className="bg-base-200 ">
+              <tr className="bg-base-200" key={data._id}>
                 <th>{index + 1}</th>
                 <td>{data?.postDetails?.name}</td>
                 <td>{data?.postDetails?.Location}</td>
                 <td>{data?.postDetails?.startDate}</td>
                 <td>{data?.postDetails?.category}</td>
-                <td className="  mx-auto text-red-600 text-xl">
-                  <button onClick={() => cancelRequest(data?._id)} className="">
+                <td className="mx-auto text-red-600 text-xl">
+                  <button
+                    title="Cancel Request"
+                    onClick={() => cancelRequest(data._id)}
+                  >
                     <MdCancel />
                   </button>
                 </td>

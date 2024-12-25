@@ -6,16 +6,24 @@ import axios from "axios";
 import { ThemeContext } from "../../context/ThemeProviderContext";
 import { Link } from "react-router-dom";
 import { axiosInstance } from "../../utils/hooks/useAxiosSecure";
+import { AuthContext } from "../../context/AuthContextProvider";
+import Loader from "../../components/Loader";
 const VolunteerNeedsNow = () => {
   // const serverUrl = import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL;
   const [posts, setPosts] = useState([]);
   const { isDarkMode } = useContext(ThemeContext);
+   const {loading, setLoading} =useContext(AuthContext)
+
   useEffect(() => {
+    setLoading(true)
     axiosInstance.get(`/api/posts?sortByDeadline=true&&dataLimit=6`).then((res) => {
+      setLoading(false)
       setPosts(res.data);
     });
   }, []);
- 
+ if(loading){
+ return <Loader></Loader>
+}
   return (
     <div>
       <div className="space-y-2 text-center">

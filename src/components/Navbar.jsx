@@ -6,12 +6,12 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeProviderContext";
 import { AuthContext } from "../context/AuthContextProvider";
 import "./navbar.css";
-import auth from "../utils/firebaseConfig";
-import { signOut } from "firebase/auth";
+// import auth from "../utils/firebaseConfig";
+// import { signOut } from "firebase/auth";
 const Navbar = () => {
   // theme mode displayName email photoURL
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
-  const { user } = useContext(AuthContext);
+  const { user, userLogout } = useContext(AuthContext);
 
   const menu = (
     <>
@@ -38,8 +38,8 @@ const Navbar = () => {
     setIsDarkMode(!isDarkMode);
   };
   // logOut function
-  const logOut = () => {
-    signOut(auth)
+  const handleLogout = () => {
+    userLogout()
       .then(() => {
         // Sign-out successful.
       })
@@ -111,13 +111,13 @@ const Navbar = () => {
           {user ? (
             <div className="dropdown  dropdown-end">
               <div className="relative flex items-center gap-3">
-                <button
+                {/* <button
                   tabIndex={0}
                   role="button"
                   className="bg-black text-white py-1 px-2 rounded-lg"
                 >
                   My Profile
-                </button>
+                </button> */}
                 <div className="btn btn-ghost btn-circle avatar  ">
                   <div className=" ProfileImg  rounded-full  ">
                     {user?.photoURL ? (
@@ -134,12 +134,13 @@ const Navbar = () => {
                     )}
                     <div>
                       <ul className=" z-50 Profile space-y-3 bg-base-100 right-0 top-12 absolute shadow-md border w-32  ">
+                   
+                          <button onClick={handleLogout}>LogOut</button>
+                
                         <li className="border-b py-2">
                           <a className="justify-between">{user?.displayName}</a>
                         </li>
-                        <li className="py-2">
-                          <button onClick={logOut}>LogOut</button>
-                        </li>
+                       
                       </ul>
                     </div>
                   </div>

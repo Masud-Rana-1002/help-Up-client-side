@@ -10,6 +10,7 @@ import { ThemeContext } from "../../context/ThemeProviderContext";
 import { axiosInstance } from "../../utils/hooks/useAxiosSecure";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { format } from "date-fns";
+import { Helmet } from "react-helmet-async";
 const UpdatePost = () => {
   const { isDarkMode } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
@@ -69,6 +70,9 @@ const UpdatePost = () => {
 
   return (
     <div>
+         <Helmet>
+        <title>Manage My Post - Volunteer Platform</title>
+      </Helmet>
       <div className="postbg flex  items-center justify-center gap-32 min-h-[calc(100vh-84px)]">
         {/* lottie-react */}
         {/* <div className=" hidden lg:block ">

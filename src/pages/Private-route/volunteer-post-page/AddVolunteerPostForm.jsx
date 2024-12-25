@@ -7,6 +7,7 @@ import "./volunteerpost.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../context/AuthContextProvider";
+import { Helmet } from "react-helmet-async";
 const AddVolunteerPostForm = () => {
   const { isDarkMode } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
@@ -62,6 +63,9 @@ const AddVolunteerPostForm = () => {
 
   return (
     <div>
+        <Helmet>
+        <title>Add Volunteer Post - Volunteer Platform</title>
+      </Helmet>
       <div className="postbg flex  items-center justify-center gap-32 min-h-[calc(100vh-84px)]">
         {/* lottie-react */}
         {/* <div className=" hidden lg:block ">

@@ -12,6 +12,7 @@ import Modal from "../pages/Private-route/Modal";
 import Table from "../pages/Private-route/Table";
 import UpdatePost from "../pages/Private-route/UpdatePost";
 import MyVolunteerRequest from "../pages/MyVolunteerRequest/MyVolunteerRequest";
+import { axiosInstance } from "../utils/hooks/useAxiosSecure";
 
 const routes = createBrowserRouter(
   [
@@ -58,13 +59,25 @@ const routes = createBrowserRouter(
       },{
         path: '/updatePost/:id',
         element:<UpdatePost></UpdatePost>,
-        loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/:${params.id}`)
+        loader:  async ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/:${params.id}`),
+        loader: async ({ params }) => {
+          const response = await axiosInstance.get(`/api/postDetails/:${params.id}` );
+          return response.data; 
+        },
       },
 
       {
         path: '/myVolunteerReq/:email',
         element: <MyVolunteerRequest></MyVolunteerRequest>,
-        loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/post/myVolunteerReq/${params.email}`)
+        loader: async ({ params }) => {
+          const response = await axiosInstance.get(`/api/post/myVolunteerReq/${params.email}`,
+            {
+              withCredentials: true, 
+            }
+          );
+      
+          return response.data; 
+        },
       }
     ]
     
