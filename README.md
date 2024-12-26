@@ -1,13 +1,13 @@
 # Volunteer Management Platform
 
 ## Project Name
-Volunteer Management Website
+Volunteer Management Website : HelpUp
 
 ## Purpose
 The Volunteer Management platform is a user-friendly web application designed to help users create, manage, and volunteer for various volunteer needs. The platform allows users to post volunteer opportunities, view available posts, and apply as a volunteer for others’ posts. This project aims to provide a seamless volunteer management experience for both organizations and volunteers.
 
 ## Live URL
-[Insert live URL here]
+https://helpup-54726.web.app/
 
 ## Key Features
 - **Authentication System**: Users can sign up, log in using email/password or social logins (Google/GitHub), and manage their profiles.
