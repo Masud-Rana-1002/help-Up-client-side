@@ -19,23 +19,21 @@ const AllVolunteerNeedPosts = () => {
 
   useEffect(() => {
     setLoading(true);
-    axiosInstance
-      .get(`/api/all-posts?search=${search}`)
-      .then((res) => {
-        setLoading(false);
-        setPosts(res.data);
-      });
+    axiosInstance.get(`/api/all-posts?search=${search}`).then((res) => {
+      setLoading(false);
+      setPosts(res.data);
+    });
   }, [search]);
 
   const handlerReset = () => {
     setSearch("");
   };
 
-if(!search){
-  if (loading) {
-    return <Loader />;
+  if (!search) {
+    if (loading) {
+      return <Loader />;
+    }
   }
-}
 
   // Function to toggle between card and table layout
   const toggleLayout = () => {
@@ -110,12 +108,19 @@ if(!search){
                   <h3 className="text-xl font-semibold dark:text-violet-600">
                     {post.PostTitle}
                   </h3>
-                  <p className="leading-snug dark:text-gray-600">{post.category}</p>
+                  <p>
+                  Volunteers Needed: <span className="font-medium">{post?.NoOfVolunteersRequired}</span>
+                </p>
+                <p>Category: <span className="leading-snug font-semibold dark:text-gray-600">
+                    {post.category}
+                  </span></p>
+                 
                 </div>
                 <div className="flex items-center gap-2">
                   <p className="text-lg font-semibold">Deadline:</p>
                   <span>{format(new Date(post.startDate), "dd-MM-yyyy")}</span>
                 </div>
+               
                 <Link to={`/VolunteerNeedPostDetails/${post._id}`}>
                   <button className="btn my-1 hover:bg-[#27426d] bg-[#3a5f9c] text-white">
                     View Details

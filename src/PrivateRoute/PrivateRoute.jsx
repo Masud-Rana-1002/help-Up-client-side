@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 
 import { Navigate} from 'react-router-dom';
-import Loader from '../../components/Loader';
+
 import { AuthContext } from '../context/AuthContextProvider';
+import Loader from '../components/Loader';
 
 const PrivateRoute = ({children}) => {
-const {user, loader, setLoader} = useContext(AuthContext)
+const {user, loading, setLoading} = useContext(AuthContext)
 
 
-if(loader){
+if(loading){
   return <div className='min-h-[calc(100dvh-430px)] flex items-center justify-center mx-auto w-full'><Loader></Loader> </div>
 }
   if(user){

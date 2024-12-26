@@ -7,13 +7,20 @@ import { RxCross1 } from "react-icons/rx";
 
 
 import { ThemeContext } from "../../context/ThemeProviderContext";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import ModalForm from "./volunteer-post-page/ModalForm";
+import { AuthContext } from "../../context/AuthContextProvider";
 
 
 const Modal = () => {
+const navigate = useNavigate()
   const {modalOpen, setModalOpen } = useContext(ThemeContext)
+  const {user} = useContext(AuthContext)
   const data = useLoaderData();
+  const ModalClose = ()=>{
+    setModalOpen(false)
+    navigate(`/manageMyPosts/${user?.email}`)
+  }
   return (
     <>
       <div
@@ -28,7 +35,7 @@ const Modal = () => {
           <div className="  w-full flex items-end justify-end">
             <RxCross1
               className="p-2 text-[2.5rem] hover:bg-[#e7e7e7] rounded-full transition-all duration-300 cursor-pointer"
-              onClick={() => setModalOpen(false)}
+              onClick={ModalClose}
             />
           </div>
 

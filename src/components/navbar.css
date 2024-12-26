@@ -1,13 +1,13 @@
-:hover.ProfileImg .Profile{
-  display: block;
-  background-color: transparent;
-  z-index: 1;
-  
+.Profile {
+  top: -400px;
 }
-.Profile{
-  display: none;
+
+.ProfileImg:hover .Profile {
+  top: 40px;
+  transition:
+  width 2s,
+  height 2s,
+  background-color 2s,
+  rotate 2s;
  
-}
-:hover.Profile{
-display: block;
 }

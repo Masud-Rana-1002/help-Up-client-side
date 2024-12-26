@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../../../context/ThemeProviderContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./volunteerpost.css";
@@ -11,8 +11,8 @@ import { Helmet } from "react-helmet-async";
 const AddVolunteerPostForm = () => {
   const { isDarkMode } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
+const navigate = useNavigate()
 
-  console.log(user?.displayName);
   const [startDate, setStartDate] = useState(new Date());
   const [category, setCategory] = useState("");
   const serverUrl = import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL;
@@ -49,6 +49,7 @@ const AddVolunteerPostForm = () => {
           timer: 3000,
         });
         e.target.reset();
+        navigate(`/manageMyPosts/${user.email}`) 
       })
       .catch((error) => {
         Swal.fire({

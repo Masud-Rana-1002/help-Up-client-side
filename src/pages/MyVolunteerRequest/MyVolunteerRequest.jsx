@@ -1,16 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdCancel } from "react-icons/md";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
-import { axiosInstance } from "../../utils/hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../context/AuthContextProvider";
 import Loader from "../../components/Loader";
+import EmptyPage from "../../components/EmptyPage";
+import Table from "../Private-route/Table";
+import { axiosInstance } from "../../utils/hooks/useAxiosSecure";
+import axios from "axios";
 
 const MyVolunteerRequest = () => {
-  const reqData = useLoaderData();
-  const { loading, setLoading } = useContext(AuthContext);
-  const [postReqData, setPostReqData] = useState(reqData);
+  
+  const { loading, setLoading, user } = useContext(AuthContext);
+  const [postReqData, setPostReqData] = useState([]);
 
   const cancelRequest = (id) => {
     Swal.fire({
@@ -47,7 +50,16 @@ const MyVolunteerRequest = () => {
       }
     });
   };
+useEffect(()=>{
+ 
+  axios.get(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/post/myVolunteerReq/${user?.email}`)
+  .then(res =>{
+    setPostReqData(res.data)
+    
+  })
+},[user])
 
+// console.log(reqData)
   if (loading) {
     return <Loader />; 
   }
@@ -57,7 +69,9 @@ const MyVolunteerRequest = () => {
       <Helmet>
         <title>My Volunteer Requests - Volunteer Platform</title>
       </Helmet>
+     
       <div className="overflow-x-auto">
+
         <table className="table">
           {/* head */}
           <thead>
@@ -72,7 +86,7 @@ const MyVolunteerRequest = () => {
           </thead>
           <tbody>
             {/* Map through postReqData */}
-            {postReqData.map((data, index) => (
+            {postReqData?.map((data, index) => (
               <tr className="bg-base-200" key={data._id}>
                 <th>{index + 1}</th>
                 <td>{data?.postDetails?.name}</td>
@@ -91,6 +105,7 @@ const MyVolunteerRequest = () => {
             ))}
           </tbody>
         </table>
+        {postReqData?.length===0 && <EmptyPage></EmptyPage>}
       </div>
     </div>
   );

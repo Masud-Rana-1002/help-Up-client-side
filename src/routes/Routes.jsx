@@ -13,6 +13,7 @@ import Table from "../pages/Private-route/Table";
 import UpdatePost from "../pages/Private-route/UpdatePost";
 import MyVolunteerRequest from "../pages/MyVolunteerRequest/MyVolunteerRequest";
 import { axiosInstance } from "../utils/hooks/useAxiosSecure";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const routes = createBrowserRouter(
   [
@@ -36,7 +37,7 @@ const routes = createBrowserRouter(
       },
       {
         path:"/AddVolunteerPost",
-        element: <AddVolunteerPostForm></AddVolunteerPostForm>
+        element:<PrivateRoute><AddVolunteerPostForm></AddVolunteerPostForm></PrivateRoute> 
       },
       {
         path:"/allVolunteerNeedPosts",
@@ -45,36 +46,26 @@ const routes = createBrowserRouter(
       {
         
         path:"/VolunteerNeedPostDetails/:id",
-        element: <VolunteerNeedPostDetails></VolunteerNeedPostDetails>,
+        element: <PrivateRoute><VolunteerNeedPostDetails></VolunteerNeedPostDetails></PrivateRoute>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/${params.id}`)
       },{
         path:'/modal/:id',
-        element: <Modal></Modal>,
+        element:<PrivateRoute> <Modal></Modal></PrivateRoute>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/${params.id}`)
       },{
         path: '/manageMyPosts/:email',
-        element:<Table></Table>,
+        element:<PrivateRoute><Table></Table></PrivateRoute>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/myPost/${params.email}`)
 
       },{
         path: '/updatePost/:id',
         element:<UpdatePost></UpdatePost>,
-        loader:  async ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/:${params.id}`),
-        loader: async ({ params }) => {
-          const response = await axiosInstance.get(`/api/postDetails/:${params.id}` );
-          return response.data; 
-        },
+        loader:  async ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/:${params.id}`)
       },
 
       {
-        path: '/myVolunteerReq/:email',
+        path: '/myVolunteerReq',
         element: <MyVolunteerRequest></MyVolunteerRequest>,
-        loader: async ({ params }) => {
-          const response = await axiosInstance.get(`/api/post/myVolunteerReq/${params.email}`
-          );
-      
-          return response.data; 
-        },
       }
     ]
     

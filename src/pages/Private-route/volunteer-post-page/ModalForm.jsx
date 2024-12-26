@@ -26,10 +26,10 @@ NoOfVolunteersRequired,
   const { isDarkMode } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
   const [suggestion, setSuggestion] = useState("");
+console.log(user)
 
 
-  const serverUrl = import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL;
-
+  
   const BeVolunteerHandler = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -58,8 +58,8 @@ NoOfVolunteersRequired,
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Success! Your volunteer post has been added.",
-          text: "Thank you for your contribution to the community.",
+          title: "Success! Your volunteer request has been submitted.",
+          text: "Thank you for offering your help. We'll get back to you soon.",
           showConfirmButton: false,
           timer: 3000,
         });
