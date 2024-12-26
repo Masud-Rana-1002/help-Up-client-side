@@ -134,14 +134,7 @@ const Navbar = () => {
                       </li>
                     </a>
                   </li>
-                  <li>
-                    <a>  <button
-                      className="py-2 relative z-40 px-3 rounded-lg  hover:bg-[#27426d] bg-[#3a5f9c] text-white"
-                      onClick={handleLogout}
-                    >
-                      LogOut
-                    </button></a>
-                  </li>
+                 
                 </ul>
               
             </div>
@@ -162,7 +155,7 @@ const Navbar = () => {
                   />
                 )}
                 <div>
-                  <ul className="p-2 z-50 rounded-md  Profile space-y-3 bg-base-100 right-0 absolute shadow-md border w-32  ">
+                  <ul className="p-2 z-50 rounded-md  Profile space-y-3 bg-base-100 right-8 absolute shadow-md border w-32  ">
                   <button
                       className="py-2 relative z-40 px-3 rounded-lg  hover:bg-[#27426d] bg-[#3a5f9c] text-white"
                       onClick={handleLogout}
