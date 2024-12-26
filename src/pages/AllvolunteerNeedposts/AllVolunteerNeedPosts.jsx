@@ -41,7 +41,7 @@ const AllVolunteerNeedPosts = () => {
   };
 
   return (
-    <div className="my-6">
+    <div className="my-6 w-11/12 mx-auto">
       <Helmet>
         <title>All Volunteer Need Posts - Volunteer Platform</title>
       </Helmet>

@@ -7,7 +7,7 @@ import VolunteerNeedsNow from "./VolunteerNeedsNow";
 
 const Home = () => {
   return (
-    <div className="container mx-auto z-0 space-y-12">
+    <div className="container w-11/12 md:w-full mx-auto z-0 space-y-12">
       <Helmet>
       <title>Home - Volunteer Platform</title>
       </Helmet>

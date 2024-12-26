@@ -67,12 +67,8 @@ const navigate = useNavigate()
         <Helmet>
         <title>Add Volunteer Post - Volunteer Platform</title>
       </Helmet>
-      <div className="postbg flex  items-center justify-center gap-32 min-h-[calc(100vh-84px)]">
-        {/* lottie-react */}
-        {/* <div className=" hidden lg:block ">
-          {/* <Lottie animationData={logInAnimation} loop={true} /> */}
-        {/* </div> */}
-        {/* login form */}
+      <div className="postbg flex w-11/12 mx-auto my-4  items-center justify-center gap-32 min-h-[calc(100vh-84px)]">
+      
         <div
           className={`card-body  bg-base-100 w-full max-w-screen-lg rounded-lg shrink-0 shadow-2xl ${
             isDarkMode ? "border border-[#891f21]" : ""

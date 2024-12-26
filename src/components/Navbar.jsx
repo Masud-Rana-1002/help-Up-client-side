@@ -37,11 +37,13 @@ const Navbar = () => {
   // logOut function
   const handleLogout = () => {
     userLogout()
-      .then(() => {})
+      .then(() => {
+      
+        navigate("/login"); 
+      })
       .catch((error) => {
-        // An error happened.
+        console.log('logout error:', error); 
       });
-    navigate("/");
   };
   return (
     <nav className="navbar  p-0">
@@ -110,7 +112,7 @@ const Navbar = () => {
               <button
                   tabIndex={0}
                   role="button"
-                  className="bg-black text-white py-1 px-2 rounded-lg"
+                  className="bg-[#3a5f9c] text-white py-1 px-2 rounded-lg"
                 >
                   My Profile
                 </button>

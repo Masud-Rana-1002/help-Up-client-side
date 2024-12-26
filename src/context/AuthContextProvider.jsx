@@ -27,7 +27,7 @@ const signInWithGoogle = () => {
 }
 // user logOut 
 const userLogout =()=>{
-  signOut(auth)
+return  signOut(auth)
 }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {

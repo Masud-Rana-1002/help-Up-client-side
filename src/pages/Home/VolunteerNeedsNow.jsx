@@ -51,7 +51,7 @@ const VolunteerNeedsNow = () => {
                   className="block object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
                 />
                 <div className="flex items-center text-xs">
-                  <span>
+                  <span className="font-medium">
                     {post?.startDate
                       ? format(new Date(post?.startDate), "dd-MM-yyyy")
                       : "Date not available"}
@@ -64,12 +64,12 @@ const VolunteerNeedsNow = () => {
                     {post.PostTitle}
                   </h3>
                 </a>
-                <p className="leading-snug dark:text-gray-600">
-                  {post.category}
+                <p className="leading-snug pb-2 dark:text-gray-600">
+                Category:  {post.category}
                 </p>
               </div>
               <Link to={`/VolunteerNeedPostDetails/${post._id}`}>
-                <button className="btn hover:bg-[#2b4470] bg-[#3a5f9c] text-white">
+                <button className="btn  hover:bg-[#2b4470] bg-[#3a5f9c] text-white">
                   View Details
                 </button>
               </Link>
