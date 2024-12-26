@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MdCancel } from "react-icons/md";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../context/AuthContextProvider";
@@ -9,12 +9,13 @@ import EmptyPage from "../../components/EmptyPage";
 import Table from "../Private-route/Table";
 import { axiosInstance } from "../../utils/hooks/useAxiosSecure";
 import axios from "axios";
+import { format } from "date-fns";
 
 const MyVolunteerRequest = () => {
   
   const { loading, setLoading, user } = useContext(AuthContext);
   const [postReqData, setPostReqData] = useState([]);
-
+const navigate = useNavigate()
   const cancelRequest = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -35,6 +36,7 @@ const MyVolunteerRequest = () => {
               text: "Your review has been deleted.",
               icon: "success",
             });
+            navigate(`manageMyPosts/${user.email}`)
           }
           const updatedData = postReqData.filter((data) => data._id !== id);
           setPostReqData(updatedData);
@@ -91,7 +93,7 @@ useEffect(()=>{
                 <th>{index + 1}</th>
                 <td>{data?.postDetails?.name}</td>
                 <td>{data?.postDetails?.Location}</td>
-                <td>{data?.postDetails?.startDate}</td>
+                <td>  <span>{format(new Date(data?.postDetails?.startDate), "dd-MM-yyyy")}</span></td>
                 <td>{data?.postDetails?.category}</td>
                 <td className="mx-auto text-red-600 text-xl">
                   <button

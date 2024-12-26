@@ -157,7 +157,7 @@ const Navbar = () => {
                   </a>
                 </li>
                 <li>
-                  <a className="justify-between">
+                  <a className="justify-between ">
                     <li>
                       <Link to={`/manageMyPosts/${user.email}`}>
                         Manage My Posts

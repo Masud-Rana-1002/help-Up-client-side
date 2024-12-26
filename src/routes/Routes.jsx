@@ -60,7 +60,7 @@ const routes = createBrowserRouter(
       },{
         path: '/updatePost/:id',
         element:<UpdatePost></UpdatePost>,
-        loader:  async ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/:${params.id}`)
+        loader:  ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/${params.id}`)
       },
 
       {

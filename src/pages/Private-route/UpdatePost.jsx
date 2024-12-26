@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -15,7 +15,7 @@ const UpdatePost = () => {
   const { isDarkMode } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
   const postData = useLoaderData();
-
+const navigate = useNavigate()
   const [StartDate, setStartDate] = useState(postData?.startDate || new Date()
   );
   const [Category, setCategory] = useState(postData?.category || "");
@@ -42,7 +42,7 @@ const UpdatePost = () => {
       NoOfVolunteersRequired,
       Description,
     };
-    console.log(postData._id);
+  
     axiosInstance
       .patch(`/api/posts/update/${postData._id}`, UpdateData)
       .then((response) => {
@@ -55,7 +55,7 @@ const UpdatePost = () => {
           showConfirmButton: false,
           timer: 3000,
         });
-        
+        navigate(`/manageMyPosts/${user.email}`)
       })
       .catch((error) => {
         Swal.fire({

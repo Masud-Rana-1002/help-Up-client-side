@@ -12,13 +12,13 @@ import MyVolunteerRequest from "../MyVolunteerRequest/MyVolunteerRequest";
 const Table = () => {
   const initialData = useLoaderData();
 
-    // State to manage the active tab
-    const [activeTab, setActiveTab] = useState(1);
-  
-    // Handle tab click
-    const handleTabClick = (tabIndex) => {
-      setActiveTab(tabIndex);
-    };
+  // State to manage the active tab
+  const [activeTab, setActiveTab] = useState(1);
+
+  // Handle tab click
+  const handleTabClick = (tabIndex) => {
+    setActiveTab(tabIndex);
+  };
   const postsArray = initialData.map((post) => ({
     title: post.PostTitle,
     category: post.category,
@@ -89,116 +89,109 @@ const Table = () => {
   };
 
   return (
-    <div className="container  mx-auto p-4">
-        <div role="tablist" className="tabs tabs-lifted mb-2">
-      {/* Tab 1 */}
+    <div className="container mx-auto p-4 w-full max-w-6xl">
+    <div role="tablist" className="tabs tabs-lifted mb-4">
+      {/* Tabs */}
       <a
         role="tab"
-        className={`tab ${activeTab === 1 ? "tab-active text-primary [--tab-bg:yellow] [--tab-border-color:orange]" : ""}`}
+        className={`tab ${
+          activeTab === 1
+            ? "tab-active text-primary [--tab-bg:yellow] [--tab-border-color:orange]"
+            : ""
+        }`}
         onClick={() => handleTabClick(1)}
       >
-      My volunteer need post
+        My volunteer need post
       </a>
-      {/* Tab 2 */}
       <a
         role="tab"
-        className={`tab ${activeTab === 2 ? "tab-active text-primary [--tab-bg:yellow] [--tab-border-color:orange]" : ""}`}
+        className={`tab ${
+          activeTab === 2
+            ? "tab-active text-primary [--tab-bg:yellow] [--tab-border-color:orange]"
+            : ""
+        }`}
         onClick={() => handleTabClick(2)}
       >
-         My volunteer Request
+        My volunteer Request
       </a>
-     
     </div>
+  
     <div>
-      {
-        activeTab ==1&& <div>
-            <div className="mb-4">
-        <input
-          placeholder="Search..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="max-w-sm py-2.5 px-4 border border-gray-200 rounded-md outline-none focus:border-blue-300"
-        />
-      </div>
-      <h1 className="text-2xl font-semibold my-4">My volunteer need post</h1>
-      <div className="customTable w-full rounded-md ">
-        <table className=" mx-auto text-sm border border-gray-200">
-          <thead className="bg-gray-100">
-            <tr>
-              {[
-                "Title",
-                "Category",
-                "Location",
-                "Required Volunteers",
-                "Start Date",
-              ].map((header, idx) => (
-                <th
-                  key={idx}
-                  className="p-3 text-left font-medium text-gray-700 cursor-pointer"
-                  onClick={() =>
-                    handleSort(header.toLowerCase().replace(" ", ""))
-                  }
-                >
-                  <div className="flex items-center gap-[5px]">
-                    {header}
-                    <HiOutlineArrowsUpDown className="hover:bg-gray-200 p-[5px] rounded-md text-[1.6rem]" />
-                  </div>
-                </th>
-              ))}
-              <th className="p-3 text-left font-medium text-gray-700">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedData.map((item) => (
-              <tr
-                key={item.id}
-                className="border-t  border-gray-200 hover:bg-gray-50"
-              >
-                <td className="p-3">{item.title}</td>
-                <td className="p-3">{item.category}</td>
-                <td className="p-3">{item.location}</td>
-                <td className="p-3 text-center">{item.requiredVolunteers}</td>
-                <td className="p-3">{item.startDate}</td>
-                <td className="flex items-center pt-2 gap-3">
-                  <Link to={`/updatePost/${item.id}`}>
-                    <p className="text-green-600 text-xl">
-                      <GrDocumentUpdate />
-                    </p>
-                  </Link>
-                  <button onClick={() => deletePost(item.id)}>
-                    <p className="text-red-600 text-xl">
-                      <MdDeleteForever />
-                    </p>
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {!sortedData.length && (
-          <p className="text-[0.9rem] text-gray-500 py-6 text-center w-full">
-            <EmptyPage />
-          </p>
-        )}
-      </div>
-    
+      {activeTab === 1 && (
+        <div>
+          <div className="mb-4 flex items-center justify-center">
+            <input
+              placeholder="Search..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="max-w-full sm:max-w-md py-2.5 px-4 border border-gray-200 rounded-md outline-none focus:border-[#3a5f9c]"
+            />
+          </div>
+  
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border border-gray-200">
+              <thead className="bg-gray-100">
+                <tr>
+                  {["Title", "Category", "Location", "Required Volunteers", "Start Date"].map((header, idx) => (
+                    <th
+                      key={idx}
+                      className="p-3 text-left font-medium text-gray-700 cursor-pointer"
+                      onClick={() => handleSort(header.toLowerCase().replace(" ", ""))}
+                    >
+                      <div className="flex items-center gap-1">
+                        {header}
+                        <HiOutlineArrowsUpDown className="hover:bg-gray-200 p-1 rounded-md text-lg" />
+                      </div>
+                    </th>
+                  ))}
+                  <th className="p-3 text-left font-medium text-gray-700">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedData.map((item) => (
+                  <tr
+                    key={item.id}
+                    className="border-t border-gray-200 hover:bg-gray-50"
+                  >
+                    <td className="p-3">{item.title}</td>
+                    <td className="p-3">{item.category}</td>
+                    <td className="p-3">{item.location}</td>
+                    <td className="p-3 text-center">{item.requiredVolunteers}</td>
+                    <td className="p-3">{item.startDate}</td>
+                    <td className="flex items-center pt-2 gap-3">
+                      <Link to={`/updatePost/${item.id}`}>
+                        <p className="text-green-600 text-xl">
+                          <GrDocumentUpdate />
+                        </p>
+                      </Link>
+                      <button onClick={() => deletePost(item.id)}>
+                        <p className="text-red-600 text-xl">
+                          <MdDeleteForever />
+                        </p>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+  
+          {!sortedData.length && (
+            <p className="text-sm text-gray-500 py-6 text-center w-full">
+              <EmptyPage />
+            </p>
+          )}
         </div>
-      }
+      )}
+  
+      {activeTab === 2 && (
+        <div>
+          <h1 className="text-2xl font-semibold my-4 mt-20"></h1>
+          <MyVolunteerRequest />
+        </div>
+      )}
     </div>
-    
-{
-  activeTab == 2 &&   <div>
-      <h1 className="text-2xl font-semibold my-4 mt-20">
-       
-      </h1>
-    <MyVolunteerRequest></MyVolunteerRequest>
   </div>
-}
-    
-    </div>
   );
 };
 
