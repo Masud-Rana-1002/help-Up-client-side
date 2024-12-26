@@ -1,21 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MdCancel } from "react-icons/md";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../context/AuthContextProvider";
 import Loader from "../../components/Loader";
 import EmptyPage from "../../components/EmptyPage";
-import Table from "../Private-route/Table";
 import { axiosInstance } from "../../utils/hooks/useAxiosSecure";
-import axios from "axios";
 import { format } from "date-fns";
 
 const MyVolunteerRequest = () => {
-  
   const { loading, setLoading, user } = useContext(AuthContext);
   const [postReqData, setPostReqData] = useState([]);
-const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  // Cancel a volunteer request
   const cancelRequest = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -27,43 +26,61 @@ const navigate = useNavigate()
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        setLoading(true); // Set loading true while making the API request
-        axiosInstance.delete(`/api/posts/req/delete/${id}`).then((response) => {
-          setLoading(false); // Set loading false when response is received
-          if (response.deletedCount > 0) {
+        setLoading(true); // Set loading to true while making the API request
+        axiosInstance
+          .delete(`/api/posts/req/delete/${id}`, {
+            withCredentials: true,
+          })
+          .then((response) => {
+            setLoading(false); // Set loading false when the response is received
+            if (response.data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your request has been deleted.",
+                icon: "success",
+              });
+
+              // Update the state with remaining requests
+              const updatedData = postReqData.filter((data) => data._id !== id);
+              setPostReqData(updatedData);
+
+              // Navigate if necessary
+              navigate(`/manageMyPosts/${user.email}`);
+            }
+          })
+          .catch((error) => {
+            setLoading(false); // Ensure loading is reset in case of error
+            console.error("Error deleting request:", error);
             Swal.fire({
-              title: "Deleted!",
-              text: "Your review has been deleted.",
-              icon: "success",
+              title: "Error",
+              text: "Something went wrong while deleting the request!",
+              icon: "error",
             });
-            navigate(`manageMyPosts/${user.email}`)
-          }
-          const updatedData = postReqData.filter((data) => data._id !== id);
-          setPostReqData(updatedData);
-        }).catch((error) => {
-          setLoading(false); // Ensure loading is reset if an error occurs
-          console.error(error);
-          Swal.fire({
-            title: "Error",
-            text: "Something went wrong!",
-            icon: "error",
           });
-        });
       }
     });
   };
-useEffect(()=>{
- 
-  axios.get(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/post/myVolunteerReq/${user?.email}`)
-  .then(res =>{
-    setPostReqData(res.data)
-    
-  })
-},[user])
 
-// console.log(reqData)
+  // Fetch volunteer requests on component mount
+  useEffect(() => {
+    if (user?.email) {
+      // setLoading(true);
+      axiosInstance
+        .get(`/api/post/myVolunteerReq/${user.email}`)
+        .then((res) => {
+          setPostReqData(res.data);
+          setLoading(false);
+     
+        })
+        .catch((error) => {
+          console.error("Error fetching volunteer requests:", error);
+          setLoading(false);
+        });
+    }
+  }, [user, setLoading]);
+
   if (loading) {
-    return <Loader />; 
+    return <Loader />;
   }
 
   return (
@@ -71,15 +88,14 @@ useEffect(()=>{
       <Helmet>
         <title>My Volunteer Requests - Volunteer Platform</title>
       </Helmet>
-     
-      <div className="overflow-x-auto">
 
+      <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
+          {/* Table Header */}
           <thead>
             <tr className="font-bold text-sm">
               <th>S/L</th>
-              <th>Organizer name</th>
+              <th>Organizer Name</th>
               <th>Location</th>
               <th>Start Date</th>
               <th>Category</th>
@@ -87,14 +103,20 @@ useEffect(()=>{
             </tr>
           </thead>
           <tbody>
-            {/* Map through postReqData */}
-            {postReqData?.map((data, index) => (
+            {/* Render Volunteer Requests */}
+            {postReqData.map((data, index) => (
               <tr className="bg-base-200" key={data._id}>
                 <th>{index + 1}</th>
-                <td>{data?.postDetails?.name}</td>
-                <td>{data?.postDetails?.Location}</td>
-                <td>  <span>{format(new Date(data?.postDetails?.startDate), "dd-MM-yyyy")}</span></td>
-                <td>{data?.postDetails?.category}</td>
+                <td>{data?.postDetails?.name || "N/A"}</td>
+                <td>{data?.postDetails?.Location || "N/A"}</td>
+                <td>
+                  {data?.postDetails?.startDate ? (
+                    <span>{format(new Date(data.postDetails.startDate), "dd-MM-yyyy")}</span>
+                  ) : (
+                    "N/A"
+                  )}
+                </td>
+                <td>{data?.postDetails?.category || "N/A"}</td>
                 <td className="mx-auto text-red-600 text-xl">
                   <button
                     title="Cancel Request"
@@ -107,7 +129,8 @@ useEffect(()=>{
             ))}
           </tbody>
         </table>
-        {postReqData?.length===0 && <EmptyPage></EmptyPage>}
+        {/* Show EmptyPage Component if no data */}
+        {postReqData.length === 0 && <EmptyPage />}
       </div>
     </div>
   );

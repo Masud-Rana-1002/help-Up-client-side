@@ -54,9 +54,23 @@ const routes = createBrowserRouter(
         loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/postDetails/${params.id}`)
       },{
         path: '/manageMyPosts/:email',
-        element:<PrivateRoute><Table></Table></PrivateRoute>,
-        loader: ({params})=> fetch(`${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/myPost/${params.email}`)
-
+        element: <PrivateRoute><Table /></PrivateRoute>,
+        loader: async ({ params }) => {
+          const response = await fetch(
+            `${import.meta.env.VITE_VOLUNTEER_MANAGEMENT_SERVER_URL}/api/myPost/${params.email}`, 
+            {
+              method: 'GET',
+              credentials: 'include', // Include credentials in the request
+              headers: {
+                'Content-Type': 'application/json', // Optional, if you need it
+              },
+            }
+          );
+          if (!response.ok) {
+            throw new Error('Failed to load posts'); // Handle non-2xx responses
+          }
+          return response.json();
+        },
       },{
         path: '/updatePost/:id',
         element:<UpdatePost></UpdatePost>,

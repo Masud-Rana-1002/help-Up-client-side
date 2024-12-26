@@ -33,6 +33,7 @@ const userLogout =()=>{
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if(currentUser?.email){
+     
         const user ={email : currentUser.email}
         axiosInstance.post('/jwt', user,{
           withCredentials: true

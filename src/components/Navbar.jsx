@@ -21,7 +21,6 @@ const Navbar = () => {
       <li>
         <NavLink to="/allVolunteerNeedPosts">All volunteer Need posts</NavLink>
       </li>
-     
     </>
   );
 
@@ -38,14 +37,11 @@ const Navbar = () => {
   // logOut function
   const handleLogout = () => {
     userLogout()
-    
-      .then(() => {
-       
-      })
+      .then(() => {})
       .catch((error) => {
         // An error happened.
       });
-      navigate("/");
+    navigate("/");
   };
   return (
     <nav className="navbar  p-0">
@@ -107,68 +103,82 @@ const Navbar = () => {
               <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
             </svg>
           </label>
-   
+
           {user ? (
-            <div className="dropdown  dropdown-end">
-              <div className="relative flex items-center gap-3">
-                <button
+            <div className="flex items-center justify-center gap-3">
+                <div className="dropdown  dropdown-end">
+              <button
                   tabIndex={0}
                   role="button"
                   className="bg-black text-white py-1 px-2 rounded-lg"
                 >
                   My Profile
                 </button>
-                <div className="btn btn-ghost btn-circle avatar  ">
-                  <div className=" ProfileImg  rounded-full  ">
-                    {user?.photoURL ? (
-                      <img
-                        className="ProfileImg"
-                        alt="User profile image"
-                        src={user?.photoURL}
-                      />
-                    ) : (
-                      <img
-                        alt="User profile image"
-                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      />
-                    )}
-                    <div>
-                      <ul className="p-2 rounded-md z-50 Profile space-y-3 bg-base-100 right-0 absolute shadow-md border w-32  ">
-                      <li className="border-b py-2">
-                          <a className="justify-between">{user?.displayName}</a>
-                        </li>
-                        <button className="py-1 px-2 rounded-lg  hover:bg-[#27426d] bg-[#3a5f9c] text-white" onClick={handleLogout}>LogOut</button>
-
-                        
-                      </ul>
-                    </div>
-                  </div>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
+                >
+                  <li>
+                    <a className="justify-between">
+                      <li>
+                        <Link to="/AddVolunteerPost">Add volunteer post</Link>
+                      </li>
+                    </a>
+                  </li>
+                  <li>
+                    <a className="justify-between ">
+                      <li>
+                        <Link to={`/manageMyPosts/${user.email}`}>
+                          Manage My Posts
+                        </Link>
+                      </li>
+                    </a>
+                  </li>
+                  <li>
+                    <a>  <button
+                      className="py-2 relative z-40 px-3 rounded-lg  hover:bg-[#27426d] bg-[#3a5f9c] text-white"
+                      onClick={handleLogout}
+                    >
+                      LogOut
+                    </button></a>
+                  </li>
+                </ul>
+              
+            </div>
+            <div className="relative flex items-center gap-3">
+           
+            <div className="btn btn-ghost btn-circle avatar  ">
+              <div className=" ProfileImg  rounded-full  ">
+                {user?.photoURL ? (
+                  <img
+                    className="ProfileImg"
+                    alt="User profile image"
+                    src={user?.photoURL}
+                  />
+                ) : (
+                  <img
+                    alt="User profile image"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  />
+                )}
+                <div>
+                  <ul className="p-2 z-50 rounded-md  Profile space-y-3 bg-base-100 right-0 absolute shadow-md border w-32  ">
+                  <button
+                      className="py-2 relative z-40 px-3 rounded-lg  hover:bg-[#27426d] bg-[#3a5f9c] text-white"
+                      onClick={handleLogout}
+                    >
+                      LogOut
+                    </button>
+                    <li className="border-b py-2">
+                      <a className="justify-between">{user?.displayName}</a>
+                    </li>
+                    
+                  </ul>
                 </div>
               </div>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
-              >
-                <li>
-                  <a className="justify-between">
-                    <li>
-                      <Link to="/AddVolunteerPost">Add volunteer post</Link>
-                    </li>
-                  </a>
-                </li>
-                <li>
-                  <a className="justify-between ">
-                    <li>
-                      <Link to={`/manageMyPosts/${user.email}`}>
-                        Manage My Posts
-                      </Link>
-                    </li>
-                  </a>
-                </li>
-                <li>
-                  <a></a>
-                </li>
-              </ul>
+            </div>
+          </div>
+          
             </div>
           ) : (
             <button className="py-1 px-2 rounded-lg hover:bg-[#2b4470] bg-[#3a5f9c] text-white">
