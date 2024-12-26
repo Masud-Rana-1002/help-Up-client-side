@@ -9,32 +9,32 @@ export const axiosInstance = axios.create({
   withCredentials: true,  // Ensure cookies are sent with requests
 });
 
-const useAxiosSecure = () => {
-  const navigate = useNavigate();
-  const { userLogout } = useContext(AuthContext);
+// const useAxiosSecure = () => {
+//   const navigate = useNavigate();
+//   const { userLogout } = useContext(AuthContext);
 
-  useEffect(() => {
-    const interceptor = axiosInstance.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      async (error) => {
-        // Check for 401 or 403 errors
-        if (error.response?.status === 401 || error.response?.status === 403) {
-          await userLogout();  // Log the user out
-          navigate("/login");  // Redirect to login page
-        }
-        return Promise.reject(error);
-      }
-    );
+//   useEffect(() => {
+//     const interceptor = axiosInstance.interceptors.response.use(
+//       (response) => {
+//         return response;
+//       },
+//       async (error) => {
+//         // Check for 401 or 403 errors
+//         if (error.response?.status === 401 || error.response?.status === 403) {
+//           await userLogout();  // Log the user out
+//           navigate("/login");  // Redirect to login page
+//         }
+//         return Promise.reject(error);
+//       }
+//     );
 
-    // Cleanup interceptor on unmount
-    return () => {
-      axiosInstance.interceptors.response.eject(interceptor);
-    };
-  }, [userLogout, navigate]); // Ensure the effect re-runs when these dependencies change
+//     // Cleanup interceptor on unmount
+//     return () => {
+//       axiosInstance.interceptors.response.eject(interceptor);
+//     };
+//   }, [userLogout, navigate]); // Ensure the effect re-runs when these dependencies change
 
-  return axiosInstance;
-};
+//   return axiosInstance;
+// };
 
-export default useAxiosSecure;
+// export default useAxiosSecure;
