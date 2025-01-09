@@ -46,7 +46,7 @@ const Navbar = () => {
       });
   };
   return (
-    <nav className="navbar  p-0">
+    <nav className=" container mx-auto  ">
       <div className="navbar ">
         <div className="navbar-start">
           <div className="dropdown">

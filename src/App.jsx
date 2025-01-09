@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 const App = () => {
   return (
     <div>
-      <div className='container mx-auto '>
+      <div className='bg-[#3A5F9C] sticky top-0 z-50'>
         <Navbar></Navbar>
 
       </div>
