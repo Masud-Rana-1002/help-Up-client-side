@@ -1,8 +1,7 @@
 
 import React, { useContext, useState } from "react";
 
-// icons
-import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
+
 import { RxCross1 } from "react-icons/rx";
 
 
@@ -18,8 +17,9 @@ const navigate = useNavigate()
   const {user} = useContext(AuthContext)
   const data = useLoaderData();
   const ModalClose = ()=>{
+    navigate(`/`)
     setModalOpen(false)
-    navigate(`/manageMyPosts/${user?.email}`)
+    console.log(user?.email)
   }
   return (
     <>
@@ -39,7 +39,7 @@ const navigate = useNavigate()
             />
           </div>
 
-          <div className="w-full h-[750px]  flex-col">
+          <div className="w-full  flex-col">
             <ModalForm data={data}></ModalForm>
           
           </div>

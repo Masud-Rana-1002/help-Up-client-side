@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../../../context/ThemeProviderContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./volunteerpost.css";
@@ -26,7 +26,7 @@ NoOfVolunteersRequired,
   const { isDarkMode } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
   const [suggestion, setSuggestion] = useState("");
-console.log(user)
+
 
 
   
@@ -36,15 +36,7 @@ console.log(user)
     const data = Object.fromEntries(formData);
     const { volunteerName, volunteerEmail, suggestion } = data;
     const requestData = {
-      // name,
-      // email,
-      // Thumbnail,
-      // PostTitle,
-      // Location,
-      // category,
-      // startDate,
-      // volunteersRequired,
-      // Description
+     
       postId: _id,
       volunteerName,
       volunteerEmail,
@@ -54,7 +46,7 @@ console.log(user)
     axiosInstance
       .post(`/api/volunteer-request`, requestData)
       .then((response) => {
-        console.log("Post added successfully:", response);
+       
         Swal.fire({
           position: "center",
           icon: "success",
@@ -63,6 +55,7 @@ console.log(user)
           showConfirmButton: false,
           timer: 3000,
         });
+      
         e.target.reset();
       })
       .catch((error) => {
@@ -78,7 +71,7 @@ console.log(user)
 
   return (
     <div>
-      <div className="w-full   min-h-[calc(100vh-84px)]">
+      <div className=" max-h-[300px] overflow-y-auto">
         <div
           className={`p-2   w-full rounded-lg shrink-0  ${
             isDarkMode ? "border border-[#891f21]" : ""

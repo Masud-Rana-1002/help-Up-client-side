@@ -36,8 +36,8 @@ const VolunteerNeedPostDetails = () => {
     });
   }
   return (
-    <div className="min-h-screen detailsPage flex-col flex pt-16 items-center">
-      <div className="text-center p-6 max-w-screen-lg mx-auto">
+    <div className=" detailsPage flex-col flex py-10  ">
+      <div className="text-center max-w-screen-lg mx-auto">
         <h1 className="  text-2xl font-bold animate__animated animate__backInLeft">
           {" "}
           Join Us in Making a Difference!
@@ -51,8 +51,8 @@ const VolunteerNeedPostDetails = () => {
       </div>
 
       {/* Mamba ui hero use */}
-      <section className="dark:bg-gray-100 w-11/12 shadow-2xl border dark:text-gray-800 ">
-        <div className="  container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
+      <section className=" max-w-screen-lg shadow-2xl  mx-auto my-6">
+        <div className="  flex flex-col justify-center p-6 mx-auto sm:py-12 lg:flex-row lg:justify-between">
           <div className="flex flex-1 flex-col justify-center p-6 text-center rounded-sm lg:max-w-lg xl:max-w-screen-xl lg:text-left">
             <h1 className="text-4xl font-bold leading-none sm:text-5xl">
               {PostTitle}
@@ -89,7 +89,7 @@ const VolunteerNeedPostDetails = () => {
               </Link>
             </div>
           </div>
-          <div className="flex flex-1 items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128 w-full ">
+          <div className="flex flex-1 items-center justify-center  w-full ">
             <img
               src={Thumbnail}
               alt=""

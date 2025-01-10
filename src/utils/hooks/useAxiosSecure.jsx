@@ -21,8 +21,8 @@ const useAxiosSecure = () => {
       async (error) => {
         // Check for 401 or 403 errors
         if (error.response?.status === 401 || error.response?.status === 403) {
-          await userLogout();  // Log the user out
-          navigate("/login");  // Redirect to login page
+          await userLogout(); 
+          // navigate("/login"); 
         }
         return Promise.reject(error);
       }
