@@ -6,7 +6,7 @@ import AddVolunteerPostForm from "../pages/Private-route/volunteer-post-page/Add
 
 import Home from "../pages/Home/Home";
 import Page404 from "../pages/Page404/Page404";
-import AllVolunteerNeedPosts from "../pages/AllvolunteerNeedposts/AllvolunteerNeedposts";
+
 import VolunteerNeedPostDetails from "../pages/Private-route/VolunteerNeedPostDetails";
 import Modal from "../pages/Private-route/Modal";
 import Table from "../pages/Private-route/Table";
@@ -14,6 +14,10 @@ import UpdatePost from "../pages/Private-route/UpdatePost";
 import MyVolunteerRequest from "../pages/MyVolunteerRequest/MyVolunteerRequest";
 import { axiosInstance } from "../utils/hooks/useAxiosSecure";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import AllVolunteerNeedPosts from "../pages/AllvolunteerNeedposts/AllVolunteerNeedPosts";
+import ContactUs from "../pages/ContactUs/ContactUs";
+import FAQSection from "../pages/FAQSection/FAQSection";
 
 const routes = createBrowserRouter(
   [
@@ -34,6 +38,21 @@ const routes = createBrowserRouter(
       {
         path:"/register",
         element: <Register></Register>
+      },
+      {
+        path:"/AboutUs",
+        element:<AboutUs></AboutUs>
+      
+      },
+      {
+        path:"/ContactUs",
+        element:<ContactUs></ContactUs>
+      
+      },
+      {
+        path:"/faq",
+        element:<FAQSection></FAQSection>
+      
       },
       {
         path:"/AddVolunteerPost",

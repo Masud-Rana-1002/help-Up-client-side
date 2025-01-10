@@ -21,6 +21,16 @@ const Navbar = () => {
       <li>
         <NavLink to="/allVolunteerNeedPosts">All volunteer Need posts</NavLink>
       </li>
+      <li>
+        <NavLink to="/AboutUs">About Us</NavLink>
+      </li>
+    
+      <li>
+        <NavLink to="/ContactUs">Contact</NavLink>
+      </li>
+      <li>
+        <NavLink to="/faq">FAQ</NavLink>
+      </li>
     </>
   );
 
@@ -46,11 +56,11 @@ const Navbar = () => {
       });
   };
   return (
-    <nav className=" container mx-auto  ">
+    <nav className=" container w-11/12  mx-auto ">
       <div className="navbar ">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost text-white lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -74,11 +84,11 @@ const Navbar = () => {
             </ul>
           </div>
           {/* logo img */}
-          <a className=" text-xl flex items-center gap-2">
+          <a className=" text-xl flex items-center gap-2 text-white">
             <img src={logo} alt="" className="w-12  " /> HelpUp
           </a>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-center hidden lg:flex text-white">
           <ul className="menu menu-horizontal px-1">{menu}</ul>
         </div>
         <div className="navbar-end">
@@ -89,7 +99,7 @@ const Navbar = () => {
 
             {/* sun icon */}
             <svg
-              className="swap-on h-10 w-10 fill-current"
+              className="swap-on h-10 w-10 fill-current text-white"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
@@ -98,7 +108,7 @@ const Navbar = () => {
 
             {/* moon icon */}
             <svg
-              className="swap-off h-10 w-10 fill-current"
+              className="swap-off h-10 w-10 fill-current text-white"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >

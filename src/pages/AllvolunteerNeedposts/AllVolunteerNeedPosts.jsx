@@ -88,44 +88,56 @@ const AllVolunteerNeedPosts = () => {
       {/* Conditional rendering of card layout or table layout */}
       {isCardView ? (
         // Card layout
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 my-6 ">
           {posts.map((post) => (
             <div
               key={post._id}
               className={`${
-                isDarkMode ? "border border-gray-600" : ""
-              } max-w-lg p-4 shadow-md dark:bg-gray-50 dark:text-gray-800`}
+                isDarkMode && "border text-white border-gray-600 "
+              } max-w-lg  shadow-lg rounded-md  text-black bg-base-200 flex flex-col justify-between items-center`}
             >
-              <div className="space-y-4">
-                <div className="space-y-2">
+              <div className="flex flex-col justify-between h-auto p-2">
+                <div className="mb-2 flex-1">
                   <img
                     src={post.Thumbnail}
                     alt=""
-                    className="block object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
+                    className="block object-cover object-center w-full rounded-md h-56"
                   />
+                </div> 
+                <div className="flex flex-col justify-between  min-h-32 lg:min-h-48">
+                  <div>
+                    <div className="space-y-1">
+                      <h3 className="text-xl font-semibold">
+                        {post.PostTitle}
+                      </h3>
+                      <p>
+                        Volunteers Needed:{" "}
+                        <span className="font-medium">
+                          {post?.NoOfVolunteersRequired}
+                        </span>
+                      </p>
+                      <p>
+                        Category:{" "}
+                        <span className="leading-snug font-semibold">
+                          {post.category}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <p className="text-lg font-semibold">Deadline:</p>
+                      <span>
+                        {format(new Date(post.startDate), "dd-MM-yyyy")}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="mt-auto ">
+                    <Link to={`/VolunteerNeedPostDetails/${post._id}`}>
+                      <button className="btn my-1 hover:bg-[#27426d] bg-[#3a5f9c] text-white w-full">
+                        View Details
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <h3 className="text-xl font-semibold dark:text-violet-600">
-                    {post.PostTitle}
-                  </h3>
-                  <p>
-                  Volunteers Needed: <span className="font-medium">{post?.NoOfVolunteersRequired}</span>
-                </p>
-                <p>Category: <span className="leading-snug font-semibold dark:text-gray-600">
-                    {post.category}
-                  </span></p>
-                 
-                </div>
-                <div className="flex items-center gap-2">
-                  <p className="text-lg font-semibold">Deadline:</p>
-                  <span>{format(new Date(post.startDate), "dd-MM-yyyy")}</span>
-                </div>
-               
-                <Link to={`/VolunteerNeedPostDetails/${post._id}`}>
-                  <button className="btn my-1 hover:bg-[#27426d] bg-[#3a5f9c] text-white">
-                    View Details
-                  </button>
-                </Link>
               </div>
             </div>
           ))}

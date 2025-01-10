@@ -13,7 +13,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import slide3 from "../../assets/sliderImg/slider1.jpg";
 import slide4 from "../../assets/sliderImg/slider2.jpg";
 import slide5 from "../../assets/sliderImg/slider3.jpg";
-import slide6 from "../../assets/sliderImg/slider1.jpg";
+import slide6 from "../../assets/sliderImg/slider4.jpg";
 
 const Banner = () => {
   return (
@@ -35,7 +35,7 @@ const Banner = () => {
         {/* slider 1 */}
         <SwiperSlide>
           <div
-            className="hero h-[600px] slider slider1"
+            className="hero h-[500px] slider slider1"
            
           >
             <div className="hero-overlay bg-opacity-30"></div>
@@ -54,7 +54,7 @@ const Banner = () => {
         {/* slider 2 */}
         <SwiperSlide>
           <div
-            className="hero h-[600px] slider slider2"
+            className="hero  h-[500px] slider slider2"
            
           >
             <div className="hero-overlay bg-opacity-30"></div>
@@ -73,7 +73,7 @@ const Banner = () => {
         {/* slider 3 */}
         <SwiperSlide>
           <div
-            className="hero h-[600px] slider slider3"
+            className="hero  h-[500px] slider slider3"
            
           >
             <div className="hero-overlay bg-opacity-30"></div>
@@ -92,7 +92,7 @@ const Banner = () => {
         {/* slider 4 */}
         <SwiperSlide>
           <div
-            className="hero h-[600px] slider slider4"
+            className="hero  h-[500px] slider slider4"
            
           >
             <div className="hero-overlay bg-opacity-30"></div>

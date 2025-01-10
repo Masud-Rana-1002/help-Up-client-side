@@ -10,7 +10,7 @@ const App = () => {
         <Navbar></Navbar>
 
       </div>
-      <div className='container mx-auto min-h-[calc(100vh-65px)]'>
+      <div className=' mx-auto '>
         <Outlet></Outlet>
       </div>
       <div>

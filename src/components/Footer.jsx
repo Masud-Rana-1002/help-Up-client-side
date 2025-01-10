@@ -10,19 +10,18 @@ import { Link } from "react-router-dom";
 const Footer = () => {
 const {isDarkMode} = useContext(ThemeContext)
     return (
-        <footer className={`${isDarkMode? 'border-t border-gray-600': 'bg-[#3a5f9c] '}  w-full p-6 lg:p-9`}>
-            <div className="flex justify-between container mx-auto gap-[30px] flex-wrap w-full">
+        <footer className={`${isDarkMode? 'border-t border-gray-600': 'bg-[#3a5f9c] '}  w-full py-8`}>
+            <div className="flex justify-between container w-11/12  mx-auto gap-[30px] flex-wrap">
                 <div className="lg:w-[25%]">
                     <h3 className="text-[1.2rem] font-semibold text-white mb-2">About The HelpUp</h3>
                     <div className="flex flex-col gap-[8px] text-white">
-                        <span><a className="text-[0.9rem] hover:text-blue-400 cursor-pointer"><Link>Home</Link></a></span>
+                        <span><a className="text-[0.9rem] hover:text-blue-400 cursor-pointer"><Link to='/'>Home</Link></a></span>
                         <span><a
-                            className="text-[0.9rem] hover:text-blue-400 cursor-pointer">Become a customer</a></span>
-                        <span><a className="text-[0.9rem] hover:text-blue-400 cursor-pointer">About us</a></span>
+                            className="text-[0.9rem] hover:text-blue-400 cursor-pointer"><Link to='/allVolunteerNeedPosts'>Become a Volunteer</Link></a></span>
+                        <span><a className="text-[0.9rem] hover:text-blue-400 cursor-pointer"><Link to='/AboutUs'>About us</Link></a></span>
                         <span><a
-                            className="text-[0.9rem] hover:text-blue-400 cursor-pointer">FAQ</a></span>
-                        <span><a className="text-[0.9rem] hover:text-blue-400 cursor-pointer">Return policy</a></span>
-                        <span><a className="text-[0.9rem] hover:text-blue-400 cursor-pointer">Contact us</a></span>
+                            className="text-[0.9rem] hover:text-blue-400 cursor-pointer"><Link to='faq'>FAQ</Link></a></span>
+                        <span><a className="text-[0.9rem] hover:text-blue-400 cursor-pointer"><Link to='ContactUs'>Contact us</Link></a></span>
                     </div>
                 </div>
 
@@ -72,6 +71,7 @@ const {isDarkMode} = useContext(ThemeContext)
                             <BsLinkedin/>
                         </a>
                     </div>
+                    <img className="w-16" src={logo} alt="" />
                 </div>
             </div>
 

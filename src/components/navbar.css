@@ -6,3 +6,6 @@
   top: 30px;
   transition: width 2s, height 2s, background-color 2s, rotate 2s;
 }
+.menu li > *:not(ul, .menu-title, details, .btn):active, .menu li > *:not(ul, .menu-title, details, .btn).active, .menu li > details > summary:active{
+  background-color: #CE3235;
+}
