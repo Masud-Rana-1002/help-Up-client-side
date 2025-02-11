@@ -90,24 +90,24 @@ const Table = () => {
 
   return (
     <div className="container mx-auto p-4 w-full max-w-6xl">
-    <div role="tablist" className="tabs tabs-lifted mb-4">
+    <div role="tablist" className={`tabs tabs-lifted mb-4  `}>
       {/* Tabs */}
       <a
         role="tab"
         className={`tab ${
           activeTab === 1
-            ? "tab-active text-primary [--tab-bg:yellow] [--tab-border-color:orange]"
+            ? "bg-[#3A5F9C] text-white"
             : ""
         }`}
         onClick={() => handleTabClick(1)}
       >
-        My volunteer need post
+        My volunteer need posts{activeTab}
       </a>
       <a
         role="tab"
         className={`tab ${
           activeTab === 2
-            ? "tab-active text-primary [--tab-bg:yellow] [--tab-border-color:orange]"
+            ? "bg-[#3A5F9C] text-white"
             : ""
         }`}
         onClick={() => handleTabClick(2)}
