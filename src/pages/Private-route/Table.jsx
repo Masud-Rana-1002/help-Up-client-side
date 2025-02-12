@@ -43,7 +43,7 @@ const Table = () => {
   };
 
   const filteredData = useMemo(() => {
-    console.log("Search Query:", search);
+    
     const filtered = data.filter((item) =>
       Object.values(item)
         .filter(Boolean) // Remove null/undefined
@@ -51,7 +51,7 @@ const Table = () => {
           value.toString().toLowerCase().includes(search.toLowerCase())
         )
     );
-    console.log("Filtered Data:", filtered);
+ 
     return filtered;
   }, [data, search]);
 

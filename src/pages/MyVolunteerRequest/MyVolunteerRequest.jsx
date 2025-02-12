@@ -49,8 +49,8 @@ const MyVolunteerRequest = () => {
             }
           })
           .catch((error) => {
-            setLoading(false); // Ensure loading is reset in case of error
-            console.error("Error deleting request:", error);
+            setLoading(false); 
+           
             Swal.fire({
               title: "Error",
               text: "Something went wrong while deleting the request!",
@@ -73,7 +73,7 @@ const MyVolunteerRequest = () => {
      
         })
         .catch((error) => {
-          console.error("Error fetching volunteer requests:", error);
+          
           setLoading(false);
         });
     }

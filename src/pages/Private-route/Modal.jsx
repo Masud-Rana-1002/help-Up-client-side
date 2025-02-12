@@ -19,7 +19,7 @@ const navigate = useNavigate()
   const ModalClose = ()=>{
     navigate(`/`)
     setModalOpen(false)
-    console.log(user?.email)
+  
   }
   return (
     <>

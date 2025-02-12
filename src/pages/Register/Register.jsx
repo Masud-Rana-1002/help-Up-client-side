@@ -95,7 +95,7 @@ const Register = () => {
             timer: 3000,
           });
         }
-        console.error("Error during sign-in:", error.message);
+      
       });
   };
   return (

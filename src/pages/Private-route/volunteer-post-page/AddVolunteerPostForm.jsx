@@ -42,11 +42,11 @@ const AddVolunteerPostForm = () => {
       NoOfVolunteersRequired,
       Description,
     };
-    console.log(Description);
+   
     axios
       .post(`${serverUrl}/api/posts`, postData)
       .then((response) => {
-        console.log("Post added successfully:", response);
+        
         Swal.fire({
           position: "center",
           icon: "success",

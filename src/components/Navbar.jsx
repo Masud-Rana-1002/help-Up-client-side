@@ -52,7 +52,7 @@ const Navbar = () => {
         navigate("/login"); 
       })
       .catch((error) => {
-        console.log('logout error:', error); 
+      
       });
   };
   return (

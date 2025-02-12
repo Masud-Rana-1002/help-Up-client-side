@@ -40,7 +40,7 @@ const UpdatePost = () => {
     axiosInstance
       .patch(`/api/posts/update/${postData._id}`, UpdateData)
       .then((response) => {
-        console.log("Post added successfully:", response);
+       
         Swal.fire({
           position: "center",
           icon: "success",

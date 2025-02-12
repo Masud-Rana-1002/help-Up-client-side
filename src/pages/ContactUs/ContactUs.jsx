@@ -27,7 +27,7 @@ const ContactUs = () => {
     emailjs
       .send(serviceID, templateID, formData, userID)
       .then((response) => {
-        console.log("Email sent successfully!", response);
+        
         Swal.fire({
           icon: "success",
           title: "Message Sent!",
@@ -36,7 +36,7 @@ const ContactUs = () => {
         setFormData({ name: "", email: "", message: "" }); 
       })
       .catch((error) => {
-        console.error("Failed to send email:", error);
+       
         Swal.fire({
           icon: "error",
           title: "Oops...",
