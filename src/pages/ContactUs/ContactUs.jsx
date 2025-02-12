@@ -33,7 +33,7 @@ const ContactUs = () => {
           title: "Message Sent!",
           text: "Your message has been sent successfully.",
         });
-        setFormData({ name: "", email: "", message: "" }); // Clear form
+        setFormData({ name: "", email: "", message: "" }); 
       })
       .catch((error) => {
         console.error("Failed to send email:", error);

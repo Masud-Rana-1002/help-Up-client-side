@@ -58,16 +58,14 @@ const {isDarkMode} = useContext(ThemeContext)
                 <div className="lg:w-[20%]">
                     <h3 className="text-[1.2rem] font-semibold text-white mb-2">Get in touch</h3>
                     <div className="flex gap-[7px] text-white">
-                        <a className="text-[1.3rem] p-1.5 cursor-pointer rounded-full hover:bg-blue-400">
+                        <a href="https://www.facebook.com/profile.php?id=61561063179982" target="_blank" className="text-[1.3rem] p-1.5 cursor-pointer rounded-full hover:bg-blue-400">
                             <CgFacebook/>
                         </a>
-                        <a className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:bg-blue-400">
+                        <a href="https://x.com/home?lang=en" target="_blank" className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:bg-blue-400">
                             <BsTwitter/>
                         </a>
-                        <a className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:bg-blue-400">
-                            <BsInstagram/>
-                        </a>
-                        <a className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:bg-blue-400">
+                      
+                        <a href="https://www.linkedin.com/in/dev-masud-rana/" target="_blank" className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:bg-blue-400">
                             <BsLinkedin/>
                         </a>
                     </div>
